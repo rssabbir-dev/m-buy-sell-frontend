@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useAdmin from '../../../hooks/useAdmin';
+import useSeller from '../../../hooks/useSeller';
 
 const NavBar = () => {
 	const { user, logOut } = useContext(AuthContext);
@@ -9,6 +11,10 @@ const NavBar = () => {
 			.then(() => {})
 			.catch((err) => console.log(err));
 	};
+	const [isAdmin] = useAdmin();
+	const [isSeller] = useSeller();
+	console.log('admin', isAdmin);
+	console.log('seller', isSeller);
 	return (
 		<div className='navbar bg-base-100'>
 			<div className='navbar-start'>
@@ -116,10 +122,19 @@ const NavBar = () => {
 								<p>{user?.displayName}</p>
 							</li>
 							<li>
-								<a className='justify-between'>
-									Profile
-									<span className='badge'>New</span>
-								</a>
+								{isAdmin && (
+									<Link to='/user/admin'>
+										Admin Dashboard
+									</Link>
+								)}
+								{isSeller && (
+									<Link to='/user/seller'>
+										Seller Dashboard
+									</Link>
+								)}
+								{!isAdmin && !isSeller && (
+									<Link to='/user/buyer'>Dashboard</Link>
+								)}
 							</li>
 							<li>
 								<a>Settings</a>

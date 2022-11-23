@@ -1,9 +1,7 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import NavBar from '../../pages/shared/NavBar/NavBar';
 
-const SellerLayout = () => {
-    return (
+const BuyerLayout = () => {
+	return (
 		<>
 			<NavBar />
 			<div className='drawer drawer-mobile'>
@@ -28,7 +26,7 @@ const SellerLayout = () => {
 					></label>
 					<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
 						<li>
-							<a>Add A Product</a>
+							<a>My Orders</a>
 						</li>
 						<li>
 							<a>My Products Buyers</a>
@@ -40,4 +38,4 @@ const SellerLayout = () => {
 	);
 };
 
-export default SellerLayout;
+export default BuyerLayout;

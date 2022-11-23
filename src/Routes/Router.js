@@ -5,6 +5,7 @@ import SellerLayout from '../layout/SellerLayout/SellerLayout';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
+import AddProduct from '../pages/Seller/AddProduct/AddProduct';
 
 export const router = createBrowserRouter([
 	{
@@ -32,5 +33,11 @@ export const router = createBrowserRouter([
 	{
 		path: '/user/seller',
 		element: <SellerLayout />,
+		children: [
+			{
+				path: '/user/seller',
+				element:<AddProduct/>
+			}
+		]
 	},
 ]);

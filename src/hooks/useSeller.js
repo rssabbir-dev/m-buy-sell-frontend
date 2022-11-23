@@ -3,10 +3,10 @@ import auth from '../firebase/firebase.config';
 
 const useSeller = () => {
 	const { data: isSeller = false, isLoading: isSellerLoading } = useQuery({
-		queryKey: ['isSeller'],
+		queryKey: ['isSeller',auth.currentUser?.uid],
 		queryFn: async () => {
 			const res = await fetch(
-				`${process.env.REACT_APP_SERVER_URL}/user/seller/${auth.currentUser.uid}`
+				`${process.env.REACT_APP_SERVER_URL}/user/seller/${auth.currentUser?.uid}`
 			);
 			const data = await res.json();
 			return data.isSeller;
