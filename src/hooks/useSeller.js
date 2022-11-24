@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import auth from '../firebase/firebase.config';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const useSeller = () => {
+	const { user } = useContext(AuthContext);
 	const { data: isSeller = false, isLoading: isSellerLoading } = useQuery({
-		queryKey: ['isSeller',auth.currentUser?.uid],
+		queryKey: ['isSeller', user?.uid],
 		queryFn: async () => {
 			const res = await fetch(
-				`${process.env.REACT_APP_SERVER_URL}/user/seller/${auth.currentUser?.uid}`
+				`${process.env.REACT_APP_SERVER_URL}/user/seller/${user?.uid}`
 			);
 			const data = await res.json();
 			return data.isSeller;

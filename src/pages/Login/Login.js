@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -25,12 +26,25 @@ const Login = () => {
 		loginUser(email, password)
 			.then((res) => {
 				const user = res.user;
-				setLoginUserLoading(false);
-				navigate(from, { replace: true });
+				getAccessToken(user.uid)
 			})
 			.catch((err) => {
 				toast.error(err.message);
 				setLoginUserLoading(false);
+			});
+	};
+
+	const getAccessToken = (uid) => {
+		axios
+			.post(`${process.env.REACT_APP_SERVER_URL}/jwt`, { uid })
+			.then((res) => {
+				console.log(res.data.accessToken);
+				localStorage.setItem('accessToken',res.data.accessToken)
+				setLoginUserLoading(false);
+				// navigate(from, { replace: true });
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	};
 	return (
@@ -66,8 +80,8 @@ const Login = () => {
 								placeholder='Enter email'
 								{...register('email', {
 									required: 'Email address is required',
-                                })}
-                                autoComplete='username'
+								})}
+								autoComplete='username'
 							/>
 							{errors.email && (
 								<p className='text-red-500'>
@@ -112,8 +126,8 @@ const Login = () => {
 										value: 6,
 										message: 'Password must be 6 character',
 									},
-                                })}
-                                autoComplete='current-password'
+								})}
+								autoComplete='current-password'
 							/>
 							{errors.password && (
 								<p className='text-red-500'>

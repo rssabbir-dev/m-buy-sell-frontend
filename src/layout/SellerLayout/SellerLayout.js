@@ -1,9 +1,9 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import NavBar from '../../pages/shared/NavBar/NavBar';
 
 const SellerLayout = () => {
-    return (
+	return (
 		<>
 			<NavBar />
 			<div className='drawer drawer-mobile'>
@@ -28,10 +28,12 @@ const SellerLayout = () => {
 					></label>
 					<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
 						<li>
-							<a>Add A Product</a>
+							<Link to='/user/seller'>Add A Product</Link>
 						</li>
 						<li>
-							<a>My Products Buyers</a>
+							<Link to='/user/seller/all-products'>
+								My Products Buyers
+							</Link>
 						</li>
 					</ul>
 				</div>

@@ -2,10 +2,13 @@ import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from '../layout/AdminLayout/AdminLayout';
 import MainLayout from '../layout/MainLayout/MainLayout';
 import SellerLayout from '../layout/SellerLayout/SellerLayout';
+import ErrorElement from '../pages/ErrorElement/ErrorElement';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
 import AddProduct from '../pages/Seller/AddProduct/AddProduct';
+import DisplaySellerProducts from '../pages/Seller/DisplaySellerProducts/DisplaySellerProducts';
+import SellerRoute from './SellerRoute';
 
 export const router = createBrowserRouter([
 	{
@@ -24,6 +27,10 @@ export const router = createBrowserRouter([
 				path: '/registration',
 				element: <Registration />,
 			},
+			{
+				path: '/seller-not-found',
+				element: <ErrorElement message={'You Are Not Seller'} />,
+			},
 		],
 	},
 	{
@@ -32,12 +39,20 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/user/seller',
-		element: <SellerLayout />,
+		element: (
+			<SellerRoute>
+				<SellerLayout />
+			</SellerRoute>
+		),
 		children: [
 			{
 				path: '/user/seller',
-				element:<AddProduct/>
-			}
-		]
+				element: <AddProduct />,
+			},
+			{
+				path: '/user/seller/all-products',
+				element: <DisplaySellerProducts />,
+			},
+		],
 	},
 ]);

@@ -1,7 +1,10 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
+	const { user } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
@@ -9,7 +12,56 @@ const AddProduct = () => {
 	} = useForm();
 
 	const handleProductSubmit = (data) => {
-		console.log(data);
+		handleGetImageLink(data);
+	};
+	const handleGetImageLink = (data) => {
+		const formData = new FormData();
+		formData.append('image', data.product_image[0]);
+		axios
+			.post(
+				`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_API_KEY}`,
+				formData
+			)
+			.then((res) => {
+				handleAddProduct(data, res.data.data.url);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const handleAddProduct = (data, image) => {
+		const {
+			product_name,
+			seller_phone,
+			seller_location,
+			condition,
+			original_price,
+			resell_price,
+			product_description,
+			year_of_used,
+			category,
+		} = data;
+		const product = {
+			product_name,
+			product_description,
+			product_image: image,
+			category,
+			condition,
+			resell_price,
+			original_price,
+			year_of_used,
+			seller_location,
+			seller_phone,
+			seller_email: user.email,
+			seller_name: user.displayName,
+			seller_uid: user.uid,
+			seller_image: user.photoURL,
+		};
+		axios
+			.post(`${process.env.REACT_APP_SERVER_URL}/products`, product)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => console.log(err));
 	};
 
 	/**
@@ -35,140 +87,226 @@ const AddProduct = () => {
 	return (
 		<section className=''>
 			<h2 className='text-3xl'>Add A New Product</h2>
-			<div class='mx-auto'>
-				<div class='rounded-lg bg-white lg:col-span-3 mt-10'>
+			<div className='mx-auto'>
+				<div className='rounded-lg bg-white lg:col-span-3 mt-10'>
 					<form
 						onSubmit={handleSubmit(handleProductSubmit)}
-						class='space-y-4'
+						className='space-y-4'
 					>
-						<div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+						<div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
 							<div>
-								<label class='font-semibold' for='name'>
-									Name
+								<label className='font-semibold'>
+									Product Name
 								</label>
 								<input
-									class='w-full input input-bordered'
-									placeholder='Name'
+									className='w-full input input-bordered'
+									placeholder='Product Name'
 									type='text'
-									id='name'
+									{...register('product_name', {
+										required: 'Product name is required',
+									})}
 								/>
+								{errors.product_name && (
+									<p className='text-red-500 text-sm'>
+										{errors.product_name?.message}
+									</p>
+								)}
 							</div>
 							<div>
-								<label class='font-semibold' for='phone'>
-									Phone
-								</label>
+								<label className='font-semibold'>Phone</label>
 								<input
-									class='w-full input input-bordered'
+									className='w-full input input-bordered'
 									placeholder='Phone Number'
-									type='tel'
-									id='phone'
+									type='number'
+									{...register('seller_phone', {
+										required: 'Phone number is required',
+										minLength: {
+											value: 11,
+											message:
+												'Phone number must be minimums 11 character',
+										},
+									})}
 								/>
+								{errors.seller_phone && (
+									<p className='text-red-500 text-sm'>
+										{errors.seller_phone?.message}
+									</p>
+								)}
 							</div>
 						</div>
 
-						<div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+						<div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
 							<div>
-								<label class='font-semibold'>Image</label>
+								<label className='font-semibold'>Image</label>
 								<input
-									class='w-full file-input input-bordered'
+									className='w-full file-input input-bordered'
 									placeholder='Email address'
 									type='file'
+									{...register('product_image', {
+										required: 'Product image is required',
+									})}
 								/>
+								{errors.product_image && (
+									<p className='text-red-500 text-sm'>
+										{errors.product_image?.message}
+									</p>
+								)}
 							</div>
 
 							<div>
-								<label class='font-semibold'>Category</label>
-								<select className='select select-bordered w-full'>
+								<label className='font-semibold'>
+									Category
+								</label>
+								<select
+									{...register('category')}
+									className='select select-bordered w-full'
+								>
 									<option disabled selected>
 										Who shot first?
 									</option>
-									<option>Han Solo</option>
+									<option value='1'>Han Solo</option>
 									<option>Greedo</option>
 								</select>
 							</div>
 						</div>
-						<div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+						<div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
 							<div>
-								<label class='font-semibold'>Location</label>
+								<label className='font-semibold'>
+									Location
+								</label>
 								<input
-									class='w-full input input-bordered'
+									className='w-full input input-bordered'
 									placeholder='Location address'
 									type='text'
+									{...register('seller_location', {
+										required: 'Location is required',
+									})}
 								/>
+								{errors.seller_location && (
+									<p className='text-red-500 text-sm'>
+										{errors.seller_location?.message}
+									</p>
+								)}
 							</div>
 
 							<div>
-								<label class='font-semibold'>Condition</label>
-								<select className='select select-bordered w-full'>
-									<option disabled selected>
-										Excellent
-									</option>
-									<option>Good</option>
-									<option>Fair</option>
+								<label className='font-semibold'>
+									Condition
+								</label>
+								<select
+									defaultValue='Fair'
+									{...register('condition', {
+										required: 'Condition status required',
+									})}
+									className='select select-bordered w-full'
+								>
+									<option value='Excellent'>Excellent</option>
+									<option value='Good'>Good</option>
+									<option value='Fair'>Fair</option>
 								</select>
+								{errors.condition && (
+									<p className='text-red-500 text-sm'>
+										{errors.condition?.message}
+									</p>
+								)}
 							</div>
 						</div>
 
-						<div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
+						<div className='grid grid-cols-1 gap-4 sm:grid-cols-3'>
 							<div>
-								<label class='font-semibold'>
+								<label className='font-semibold'>
 									Resell Price
 								</label>
 								<input
-									class='w-full input input-bordered'
+									className='w-full input input-bordered'
 									placeholder='Resell Price'
 									type='number'
+									{...register('resell_price', {
+										required: 'Resell price is required',
+									})}
 								/>
+								{errors.resell_price && (
+									<p className='text-red-500 text-sm'>
+										{errors.resell_price?.message}
+									</p>
+								)}
 							</div>
 							<div>
-								<label class='font-semibold'>
+								<label className='font-semibold'>
 									Original Price
 								</label>
 								<input
-									class='w-full input input-bordered'
+									className='w-full input input-bordered'
 									placeholder='Original Price'
 									type='number'
+									{...register('original_price', {
+										required: 'Original price is required',
+									})}
 								/>
+								{errors.product_name && (
+									<p className='text-red-500 text-sm'>
+										{errors.original_price?.message}
+									</p>
+								)}
 							</div>
 							<div>
-								<label class='font-semibold'>
+								<label className='font-semibold'>
 									Year Of Used
 								</label>
 								<input
-									class='w-full input input-bordered'
+									className='w-full input input-bordered'
 									placeholder='Year of Used'
 									type='number'
+									{...register('year_of_used', {
+										required: 'Year of used is required',
+									})}
 								/>
+								{errors.year_of_used && (
+									<p className='text-red-500 text-sm'>
+										{errors.year_of_used?.message}
+									</p>
+								)}
 							</div>
 						</div>
 
 						<div>
-							<label class='font-semibold'>Description</label>
+							<label className='font-semibold'>Description</label>
 							<textarea
-								class='w-full textarea textarea-bordered'
+								className='w-full textarea textarea-bordered'
 								placeholder='description'
 								rows='8'
+								{...register('product_description', {
+									required: 'Product description is required',
+								})}
 							></textarea>
+							{errors.product_description && (
+								<p className='text-red-500 text-sm'>
+									{errors.product_description?.message}
+								</p>
+							)}
 						</div>
 
-						<div class='mt-4'>
+						<div className='mt-4'>
 							<button
 								type='submit'
-								class='inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto'
+								className='inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto'
 							>
-								<span class='font-medium'> Add Product </span>
+								<span className='font-medium'>
+									{' '}
+									Add Product{' '}
+								</span>
 
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
-									class='ml-3 h-5 w-5'
+									className='ml-3 h-5 w-5'
 									fill='none'
 									viewBox='0 0 24 24'
 									stroke='currentColor'
 								>
 									<path
-										stroke-linecap='round'
-										stroke-linejoin='round'
-										stroke-width='2'
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										strokeWidth='2'
 										d='M14 5l7 7m0 0l-7 7m7-7H3'
 									/>
 								</svg>
