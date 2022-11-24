@@ -1,19 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
-import { useContext } from 'react';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const useSeller = () => {
 	const { user } = useContext(AuthContext);
-	const { data: isSeller = false, isLoading: isSellerLoading } = useQuery({
-		queryKey: ['isSeller', user?.uid],
-		queryFn: async () => {
-			const res = await fetch(
-				`${process.env.REACT_APP_SERVER_URL}/user/seller/${user?.uid}`
-			);
-			const data = await res.json();
-			return data.isSeller;
-		},
-	});
+	const [isSellerLoading, setSellerLoading] = useState(true);
+	const [isSeller, setIsSeller] = useState(false);
+	useEffect(() => {
+		if (user?.uid) {
+			axios
+				.get(
+					`${process.env.REACT_APP_SERVER_URL}/user/seller/${user?.uid}`
+				)
+				.then((res) => {
+					setIsSeller(res.data.isSeller);
+					setSellerLoading(false)
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}, [user?.uid]);
 	return [isSeller, isSellerLoading];
 };
 

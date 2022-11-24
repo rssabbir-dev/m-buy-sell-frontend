@@ -4,7 +4,7 @@ import NavBar from '../../pages/shared/NavBar/NavBar';
 
 const SellerLayout = () => {
 	return (
-		<>
+		<div className='border border-3 border-red-400'>
 			<NavBar />
 			<div className='drawer drawer-mobile'>
 				<input
@@ -38,7 +38,7 @@ const SellerLayout = () => {
 					</ul>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -38,20 +38,27 @@ const Registration = () => {
 			});
 	};
 	const getImgLink = (formData, user, data) => {
-		axios
-			.post(
-				`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_API_KEY}`,
-				formData
-			)
+		fetch(
+			`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_API_KEY}`,
+			{
+				method: 'POST',
+				body: formData,
+			}
+		)
 			.then((res) => {
-				console.log(res.data.data.url);
-				savedUserInDb(data, user.user.uid, res.data.data.url);
-				handleUpdateUserProfile(data.name, res.data.data.url);
+				console.log(res.data?.data?.url);
+				savedUserInDb(data, user?.user?.uid, res.data?.data?.url);
+				handleUpdateUserProfile(data?.name, res.data?.data?.url);
 				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err);
 				setCreateUserLoading(false);
+				// savedUserInDb(data, user.user.uid);
+				// handleUpdateUserProfile(data.name);
+				toast.error(
+					'Oops! Failed to save your picture! you can upload again from profile section'
+				);
 			});
 	};
 	const handleUpdateUserProfile = (name, photoURL) => {
@@ -148,8 +155,8 @@ const Registration = () => {
 								placeholder='Enter email'
 								{...register('email', {
 									required: 'Email address is required',
-                                })}
-                                autoComplete='username'
+								})}
+								autoComplete='username'
 							/>
 							{errors.email && (
 								<p className='text-red-500'>
@@ -210,13 +217,11 @@ const Registration = () => {
 							<select
 								{...register('role', {
 									required: 'Role is required',
-                                })}
-                                defaultValue='buyer'
+								})}
+								defaultValue='buyer'
 								className='select select-bordered w-full'
 							>
-								<option value='buyer'>
-									Buyer
-								</option>
+								<option value='buyer'>Buyer</option>
 								<option value='seller'>Seller</option>
 							</select>
 							{errors.role && (
@@ -245,8 +250,8 @@ const Registration = () => {
 										value: 6,
 										message: 'Password must be 6 character',
 									},
-                                })}
-                                autoComplete='current-password'
+								})}
+								autoComplete='current-password'
 							/>
 							{errors.password && (
 								<p className='text-red-500'>

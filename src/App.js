@@ -6,13 +6,13 @@ import axios from 'axios';
 
 function App() {
 	// Add a request interceptor
-	axios.interceptors.request.use(function (config) {
-		const token = `Bearer ${localStorage.getItem('accessToken')}`
-		config.headers.authorization = token;
-		return config;
-	});
+	// axios.interceptors.request.use(function (config) {
+	// 	const token = `Bearer ${localStorage.getItem('accessToken')}`;
+	// 	config.headers.authorization = token;
+	// 	return config;
+	// });
 	return (
-		<div>
+		<div >
 			<Toaster />
 			<RouterProvider router={router} />
 		</div>
