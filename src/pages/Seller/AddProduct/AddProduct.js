@@ -57,7 +57,10 @@ const AddProduct = () => {
 			seller_image: user.photoURL,
 		};
 		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/products`, product)
+			.post(
+				`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`,
+				product
+			)
 			.then((res) => {
 				console.log(res);
 			})

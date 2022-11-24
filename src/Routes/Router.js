@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from '../layout/AdminLayout/AdminLayout';
 import MainLayout from '../layout/MainLayout/MainLayout';
 import SellerLayout from '../layout/SellerLayout/SellerLayout';
+import AllSeller from '../pages/Admin/AllSeller/AllSeller';
 import ErrorElement from '../pages/ErrorElement/ErrorElement';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
@@ -36,6 +37,12 @@ export const router = createBrowserRouter([
 	{
 		path: '/user/admin',
 		element: <AdminLayout />,
+		children: [
+			{
+				path: '/user/admin',
+				element: <AllSeller />,
+			},
+		],
 	},
 	{
 		path: '/user/seller',

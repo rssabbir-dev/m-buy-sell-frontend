@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import NavBar from '../../pages/shared/NavBar/NavBar';
 
 const AdminLayout = () => {
@@ -28,7 +28,7 @@ const AdminLayout = () => {
 					></label>
 					<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
 						<li>
-							<a>All Seller</a>
+							<Link to='/user/admin'>All Seller</Link>
 						</li>
 						<li>
 							<a>All Buyer</a>

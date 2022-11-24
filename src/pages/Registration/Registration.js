@@ -54,8 +54,6 @@ const Registration = () => {
 			.catch((err) => {
 				console.log(err);
 				setCreateUserLoading(false);
-				// savedUserInDb(data, user.user.uid);
-				// handleUpdateUserProfile(data.name);
 				toast.error(
 					'Oops! Failed to save your picture! you can upload again from profile section'
 				);
