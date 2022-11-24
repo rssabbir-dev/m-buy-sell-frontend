@@ -31,7 +31,7 @@ const AdminLayout = () => {
 							<Link to='/user/admin'>All Seller</Link>
 						</li>
 						<li>
-							<a>All Buyer</a>
+							<Link to='/user/admin/buyers'>All Buyer</Link>
 						</li>
 						<li>
 							<a>Reported Items</a>

@@ -6,18 +6,18 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
-const AllSeller = () => {
+const AllBuyer = () => {
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const {
-		data: sellers,
+		data: buyers,
 		isLoading,
 		refetch,
 	} = useQuery({
-		queryKey: ['sellers', user?.uid],
+		queryKey: ['buyers', user?.uid],
 		queryFn: async () => {
 			const res = await axios.get(
-				`${process.env.REACT_APP_SERVER_URL}/users-by-role/${user?.uid}?role=seller`,
+				`${process.env.REACT_APP_SERVER_URL}/users-by-role/${user?.uid}?role=buyer`,
 				{
 					headers: authHeader,
 				}
@@ -28,42 +28,6 @@ const AllSeller = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
-	const handleConfirmVerify = (id) => {
-		Swal.fire({
-			title: 'Do you want to verify this seller?',
-			showDenyButton: true,
-			showCancelButton: false,
-			confirmButtonText: 'Confirm Verified',
-			denyButtonText: `Don't Confirm`,
-		}).then((result) => {
-			/* Read more about isConfirmed, isDenied below */
-			if (result.isConfirmed) {
-				fetch(
-					`${process.env.REACT_APP_SERVER_URL}/seller-verify/${user?.uid}?id=${id}`,
-					{
-						method: 'PATCH',
-						headers: authHeader,
-					}
-				)
-					.then((res) => res.json())
-					.then((data) => {
-						if (data.modifiedCount) {
-							refetch();
-							Swal.fire('Verified Success!', '', 'success');
-						}
-					})
-					.catch((err) => {
-						Swal.fire(
-							'Oops! Something was wrong, please try again',
-							'',
-							'error'
-						);
-					});
-			} else if (result.isDenied) {
-				Swal.fire('Changes are not saved', '', 'info');
-			}
-		});
-	};
 	const handleUserDelete = (id) => {
 		Swal.fire({
 			title: 'Do you want to delete this buyer?',
@@ -110,36 +74,20 @@ const AllSeller = () => {
 							<th></th>
 							<th>Name</th>
 							<th>Email</th>
-							<th>Admin</th>
 							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>
-						{sellers.map((seller, i) => (
-							<tr key={seller._id}>
+						{buyers.map((buyer, i) => (
+							<tr key={buyer._id}>
 								<th>{i + 1}</th>
-								<td>{seller.displayName}</td>
-								<td>{seller.email}</td>
-								<td>
-									{seller?.status !== 'verified' ? (
-										<button
-											onClick={() =>
-												handleConfirmVerify(seller._id)
-											}
-											className='btn btn-xs btn-primary'
-										>
-											Confirm Verify
-										</button>
-									) : (
-										<p className='text-sm text-green-500 text-bold'>
-											Verified
-										</p>
-									)}
-								</td>
+								<td>{buyer.displayName}</td>
+								<td>{buyer.email}</td>
+
 								<td>
 									<button
 										onClick={() =>
-											handleUserDelete(seller._id)
+											handleUserDelete(buyer._id)
 										}
 										className='btn btn-xs btn-danger'
 									>
@@ -155,4 +103,4 @@ const AllSeller = () => {
 	);
 };
 
-export default AllSeller;
+export default AllBuyer;
