@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from '../layout/AdminLayout/AdminLayout';
+import BuyerLayout from '../layout/BuyerLayout/BuyerLayout';
 import MainLayout from '../layout/MainLayout/MainLayout';
 import SellerLayout from '../layout/SellerLayout/SellerLayout';
 import AllBuyer from '../pages/Admin/AllBuyer/AllBuyer';
 import AllSeller from '../pages/Admin/AllSeller/AllSeller';
+import AllOrder from '../pages/Buyer/AllOrder/AllOrder';
 import ErrorElement from '../pages/ErrorElement/ErrorElement';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
@@ -30,9 +32,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/category/:id',
-				element: <PrivateRoute>
-					<ProductByCategory/>
-				</PrivateRoute>
+				element: (
+					<PrivateRoute>
+						<ProductByCategory />
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/registration',
@@ -99,5 +103,15 @@ export const router = createBrowserRouter([
 				),
 			},
 		],
+	},
+	{
+		path: '/user/buyer',
+		element: <BuyerLayout />,
+		children: [
+			{
+				path: '/user/buyer',
+				element:<AllOrder/>
+			}
+		]
 	},
 ]);
