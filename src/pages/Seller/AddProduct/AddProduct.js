@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
@@ -11,7 +12,8 @@ import AddNewCategoryModal from '../AddNewCategoryModal/AddNewCategoryModal';
 
 const AddProduct = () => {
 	const [categoryLoading, setCategoryLoading] = useState(false);
-	const [productLoading,setProductLoading] = useState(false)
+	const [productLoading, setProductLoading] = useState(false);
+	const navigate = useNavigate();
 	const {
 		data: categories,
 		isLoading,
@@ -31,14 +33,14 @@ const AddProduct = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset
+		reset,
 	} = useForm();
 
 	const handleProductSubmit = (data) => {
 		handleGetImageLink(data);
 	};
 	const handleGetImageLink = (data) => {
-		setProductLoading(true)
+		setProductLoading(true);
 		const formData = new FormData();
 		formData.append('image', data.product_image[0]);
 		axios
@@ -84,6 +86,8 @@ const AddProduct = () => {
 			seller_name: user.displayName,
 			seller_uid: user.uid,
 			seller_image: user.photoURL,
+			createAt: new Date(),
+			status:'unsold',
 		};
 		fetch(`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`, {
 			method: 'POST',
@@ -97,13 +101,10 @@ const AddProduct = () => {
 			.then((data) => {
 				if (data.acknowledged) {
 					reset();
-					Swal.fire(
-						'Success',
-						'New Product Added',
-						'success'
-					);
+					Swal.fire('Success', 'New Product Added', 'success');
+					navigate('/user/seller/all-products');
 				}
-				setProductLoading(false)
+				setProductLoading(false);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -134,7 +135,7 @@ const AddProduct = () => {
 			})
 			.catch((err) => {
 				console.log(err);
-				setCategoryLoading(false)
+				setCategoryLoading(false);
 			});
 	};
 	return (

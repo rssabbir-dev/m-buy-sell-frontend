@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import SpinnerThreeDot from '../shared/Spinners/SpinnerThreeDot';
 
@@ -38,10 +38,9 @@ const Login = () => {
 		axios
 			.post(`${process.env.REACT_APP_SERVER_URL}/jwt`, { uid })
 			.then((res) => {
-				console.log(res.data.accessToken);
 				localStorage.setItem('accessToken',res.data.accessToken)
 				setLoginUserLoading(false);
-				// navigate(from, { replace: true });
+				navigate(from, { replace: true });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -51,20 +50,15 @@ const Login = () => {
 		<div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8'>
 			<div className='mx-auto max-w-lg'>
 				<h1 className='text-center text-2xl font-bold text-indigo-600 sm:text-3xl'>
-					Get started today
+					Welcome Back
 				</h1>
-
-				<p className='mx-auto mt-4 max-w-md text-center text-gray-500'>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					Obcaecati sunt dolores deleniti inventore quaerat mollitia?
-				</p>
 
 				<form
 					onSubmit={handleSubmit(handleLogin)}
 					className='mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl'
 				>
 					<p className='text-lg font-medium'>
-						Sign in to your account
+						Log in to your account
 					</p>
 
 					<div>
@@ -174,10 +168,9 @@ const Login = () => {
 					)}
 
 					<p className='text-center text-sm text-gray-500'>
-						No account?
-						<a className='underline' href=''>
-							Sign up
-						</a>
+						Don't have an account? <Link to='/registration' className='underline' >
+							Registration
+						</Link>
 					</p>
 				</form>
 			</div>

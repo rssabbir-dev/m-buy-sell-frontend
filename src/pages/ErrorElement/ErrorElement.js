@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const ErrorElement = ({ message }) => {
+	const { logOut } = useContext(AuthContext);
+	const navigate = useNavigate();
+	const handleLogout = () => {
+		logOut()
+			.then(() => {
+				toast.success('Logout Success');
+				navigate('/login');
+			})
+			.catch((err) => console.log(err));
+	};
 	if (message) {
 		return (
-			<div>
-                <p>{message}</p>
+			<div className='h-[80vh] flex justify-center items-center uppercase flex-col gap-5'>
+				<h1 className='text-bold text-8xl'>404!</h1>
+				<h3 className='text-3xl'>{message}</h3>
+				<div className='flex gap-5 items-center'>
+					<Link className='btn btn-primary' to='/'>Go back home</Link>
+					<button className='btn btn-warning' onClick={handleLogout}>LOGOUT</button>
+				</div>
 			</div>
 		);
 	}

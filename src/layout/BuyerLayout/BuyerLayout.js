@@ -44,7 +44,7 @@ const BuyerLayout = () => {
 								class='mt-6 flex flex-col space-y-1'
 							>
 								<Link
-									to='/user/seller'
+									to='/user/buyer'
 									href='#'
 									class='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
 								>
