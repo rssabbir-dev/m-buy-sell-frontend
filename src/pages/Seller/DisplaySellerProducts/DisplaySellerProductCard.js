@@ -1,8 +1,13 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-const DisplaySellerProductCard = ({ product, handleProductDelete }) => {
-	const { product_name, product_image, category_name, _id,status } = product;
+const DisplaySellerProductCard = ({
+	product,
+	handleProductDelete,
+	handleProductPromote,
+}) => {
+	const { product_name, product_image, category_name, _id, status, promote } =
+		product;
 
 	return (
 		<div className='block rounded-lg p-4 shadow-sm shadow-indigo-100'>
@@ -34,9 +39,10 @@ const DisplaySellerProductCard = ({ product, handleProductDelete }) => {
 					>
 						Delete
 					</button>
-					{status === 'unsold' && (
+					{status === 'unsold' && !promote && (
 						<button
 							className='btn btn-sm btn-primary'
+							onClick={() => handleProductPromote(_id)}
 						>
 							Promote
 						</button>

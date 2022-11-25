@@ -87,7 +87,8 @@ const AddProduct = () => {
 			seller_uid: user.uid,
 			seller_image: user.photoURL,
 			createAt: new Date(),
-			status:'unsold',
+			status: 'unsold',
+			promote:false,
 		};
 		fetch(`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`, {
 			method: 'POST',
