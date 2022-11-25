@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import NavBar from '../../pages/shared/NavBar/NavBar';
+import { GrChapterAdd } from 'react-icons/gr';
+import { BsBorderAll } from 'react-icons/bs';
+
 
 const SellerLayout = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +13,7 @@ const SellerLayout = () => {
 			<label
 				onClick={() => setIsOpen(!isOpen)}
 				tabIndex={0}
-				className='btn btn-ghost btn-circle fixed z-20 bg-white  md:hidden'
+				className={`btn btn-circle btn-outline btn-ghost bottom-5 left-5 fixed z-20 bg-white  md:hidden ${isOpen && 'left-56'} transition-all`}
 			>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
@@ -36,36 +38,20 @@ const SellerLayout = () => {
 				>
 					<div class='flex h-screen flex-col justify-between border-r bg-white'>
 						<div class='px-4 py-6'>
-							<Link to='/' className='btn btn-ghost'>mBuy</Link>
+							<Link to='/' className='btn btn-ghost'>
+								mBuy
+							</Link>
 
 							<nav
 								aria-label='Main Nav'
-								class='mt-6 flex flex-col space-y-1'
+								class='mt-6 flex flex-col space-y-3'
 							>
 								<Link
 									to='/user/seller'
 									href='#'
-									class='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
+									class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 								>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										class='h-5 w-5 opacity-75'
-										fill='none'
-										viewBox='0 0 24 24'
-										stroke='currentColor'
-										stroke-width='2'
-									>
-										<path
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'
-										/>
-										<path
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-										/>
-									</svg>
+									<GrChapterAdd/>
 
 									<span class='ml-3 text-sm font-medium'>
 										{' '}
@@ -75,27 +61,9 @@ const SellerLayout = () => {
 								<Link
 									to='/user/seller/all-products'
 									href='#'
-									class='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
+									class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 								>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										class='h-5 w-5 opacity-75'
-										fill='none'
-										viewBox='0 0 24 24'
-										stroke='currentColor'
-										stroke-width='2'
-									>
-										<path
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'
-										/>
-										<path
-											stroke-linecap='round'
-											stroke-linejoin='round'
-											d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-										/>
-									</svg>
+									<BsBorderAll/>
 
 									<span class='ml-3 text-sm font-medium'>
 										{' '}
@@ -106,8 +74,8 @@ const SellerLayout = () => {
 						</div>
 
 						<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-							<a
-								href='#'
+							<Link
+								
 								class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'
 							>
 								<img
@@ -125,7 +93,7 @@ const SellerLayout = () => {
 										<span> {user?.email} </span>
 									</p>
 								</div>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>

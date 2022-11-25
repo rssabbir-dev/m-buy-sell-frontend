@@ -8,6 +8,7 @@ import AllSeller from '../pages/Admin/AllSeller/AllSeller';
 import Blogs from '../pages/Blogs/Blogs';
 import AllOrder from '../pages/Buyer/AllOrder/AllOrder';
 import ErrorElement from '../pages/ErrorElement/ErrorElement';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
 import ProductByCategory from '../pages/ProductByCategory/ProductByCategory';
@@ -15,6 +16,7 @@ import Registration from '../pages/Registration/Registration';
 import AddProduct from '../pages/Seller/AddProduct/AddProduct';
 import DisplaySellerProducts from '../pages/Seller/DisplaySellerProducts/DisplaySellerProducts';
 import AdminRoute from './AdminRoute';
+import BuyerRoute from './BuyerRoute';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
 
@@ -52,8 +54,16 @@ export const router = createBrowserRouter([
 				element: <ErrorElement message={'You Are Not Seller'} />,
 			},
 			{
+				path: '/buyer-not-found',
+				element: <ErrorElement message={'You Are Not Buyer'} />,
+			},
+			{
 				path: '/admin-not-found',
 				element: <ErrorElement message={'You Are Not An Admin'} />,
+			},
+			{
+				path: '*',
+				element: <ErrorPage />,
 			},
 		],
 	},
@@ -115,7 +125,11 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: '/user/buyer',
-				element: <AllOrder />,
+				element: (
+					<BuyerRoute>
+						<AllOrder />
+					</BuyerRoute>
+				),
 			},
 		],
 	},

@@ -101,7 +101,7 @@ const AllSeller = () => {
 		});
 	};
 	return (
-		<div className=' w-[calc(100vw-240px)]'>
+		<div className='w-screen md:w-[calc(100vw-240px)]'>
 			<div className='divider'></div>
 			<h2 className='text-3xl text-center'>All Seller List</h2>
 			<div className='divider'></div>

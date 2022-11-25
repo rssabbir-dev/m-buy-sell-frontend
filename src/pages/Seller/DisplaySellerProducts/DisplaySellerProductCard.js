@@ -1,5 +1,4 @@
 import React from 'react';
-import Swal from 'sweetalert2';
 
 const DisplaySellerProductCard = ({
 	product,
@@ -20,19 +19,25 @@ const DisplaySellerProductCard = ({
 			<div className='mt-2'>
 				<dl>
 					<div>
-						<dt className='sr-only'>Price</dt>
+						<p className='font-medium'>{product_name}</p>
 
-						<dd className='text-sm text-gray-500'>$240,000</dd>
+						<p className='text-sm text-gray-500'>$240,000</p>
 					</div>
 
-					<div>
-						<dt className=''>{status}</dt>
-
-						<dd className='font-medium'>{product_name}</dd>
+					<div className='uppercase'>
+						{status === 'sold' ? (
+							<div className='text-xs badge badge-success badge-outline'>
+								{status}
+							</div>
+						) : (
+							<div className='text-xs badge badge-error badge-outline'>
+								{status}
+							</div>
+						)}
 					</div>
 				</dl>
 
-				<div>
+				<div className='flex justify-between my-5'>
 					<button
 						className='btn btn-sm btn-error'
 						onClick={() => handleProductDelete(_id)}

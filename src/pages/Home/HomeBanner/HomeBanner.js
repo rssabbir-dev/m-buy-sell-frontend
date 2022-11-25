@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomeBanner = () => {
     return (
@@ -7,7 +8,7 @@ const HomeBanner = () => {
 				<div class='mx-auto max-w-xl text-center'>
 					<h1 class='text-3xl font-extrabold sm:text-5xl'>
 						Understand User Flow.
-						<strong class='font-extrabold text-red-700 sm:block'>
+						<strong class='font-extrabold text-primary sm:block'>
 							Increase Conversion.
 						</strong>
 					</h1>
@@ -18,19 +19,19 @@ const HomeBanner = () => {
 					</p>
 
 					<div class='mt-8 flex flex-wrap justify-center gap-4'>
-						<a
-							class='block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto'
-							href='/get-started'
+						<Link
+							class='block w-full rounded bg-primary px-12 btn-primary py-3 text-sm font-medium text-white shadow  focus:outline-none focus:ring  sm:w-auto'
+							to='/registration'
 						>
 							Get Started
-						</a>
+						</Link>
 
-						<a
-							class='block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto'
-							href='/about'
+						<Link
+							class='block w-full rounded px-12 py-3 text-sm font-medium  shadow btn-primary focus:outline-none focus:ring sm:w-auto'
+							to='/blogs'
 						>
 							Learn More
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>

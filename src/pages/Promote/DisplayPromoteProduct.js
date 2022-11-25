@@ -16,11 +16,11 @@ const DisplayPromoteProduct = () => {
 		},
 	});
 	if (isLoading) {
-		return <SpinnerSeller />;
+		return;
 	}
 
 	return (
-		<div className='grid grid-cols-4'>
+		<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 			{products.map((product) => (
 				<PromotedCard product={product} />
 			))}

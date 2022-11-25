@@ -18,7 +18,7 @@ const DisplayCategories = () => {
 		return <SpinnerSeller />;
 	}
 	return (
-		<div className='grid grid-cols-6 gap-5 w-11/12 mx-auto my-20'>
+		<div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-11/12 mx-auto my-20'>
 			{categories.map((category) => (
 				<Link to={`/category/${category._id}`} className='p-8 text-center rounded-lg text-xl font-semibold bg-slate-100 uppercase shadow-md hover:shadow-xl hover:-translate-y-2 hover:cursor-pointer transition-all' key={category._id}>{category.category_name}</Link>
 			))}

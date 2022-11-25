@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
+import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 import SpinnerThreeDot from '../../shared/Spinners/SpinnerThreeDot';
 import DisplaySellerProductCard from './DisplaySellerProductCard';
 
@@ -104,10 +105,10 @@ Swal.fire({
 		
 	};
 	if (isLoading) {
-		return <SpinnerThreeDot />;
+		return <SpinnerSeller />;
 	}
 	return (
-		<div className='mb-10'>
+		<div className=''>
 			<div className='divider'></div>
 			<h2 className='text-3xl text-center'>Add A New Product</h2>
 			<div className='divider'></div>

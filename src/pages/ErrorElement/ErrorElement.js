@@ -17,7 +17,8 @@ const ErrorElement = ({ message }) => {
 	if (message) {
 		return (
 			<div className='h-[80vh] flex justify-center items-center uppercase flex-col gap-5'>
-				<h1 className='text-bold text-8xl'>404!</h1>
+				<h4>Access Forbidden</h4>
+				<h1 className='text-bold text-8xl'>403!</h1>
 				<h3 className='text-3xl'>{message}</h3>
 				<div className='flex gap-5 items-center'>
 					<Link className='btn btn-primary' to='/'>Go back home</Link>

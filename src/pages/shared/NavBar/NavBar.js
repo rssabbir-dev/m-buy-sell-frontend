@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
+import useBuyer from '../../../hooks/useBuyer';
 import useSeller from '../../../hooks/useSeller';
 
 const NavBar = () => {
@@ -13,8 +14,10 @@ const NavBar = () => {
 	};
 	const [isAdmin] = useAdmin();
 	const [isSeller] = useSeller();
+	const [isBuyer] = useBuyer();
 	console.log('admin', isAdmin);
 	console.log('seller', isSeller);
+	console.log('buyer', isBuyer);
 
 	const menuItems = (
 		<>
@@ -56,12 +59,12 @@ const NavBar = () => {
 						{menuItems}
 					</ul>
 				</div>
-				<Link to='/' className='btn btn-ghost normal-case text-xl'>mBuy</Link>
+				<Link to='/' className='btn btn-ghost normal-case text-xl'>
+					mBuy
+				</Link>
 			</div>
 			<div className='navbar-center hidden lg:flex'>
-				<ul className='menu menu-horizontal p-0'>
-					{menuItems}
-				</ul>
+				<ul className='menu menu-horizontal p-0'>{menuItems}</ul>
 			</div>
 			<div className='navbar-end'>
 				{user?.uid ? (

@@ -17,7 +17,7 @@ const Blogs = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
-    return <div>
+    return <div className='space-y-10'>
         {
             blogs.map(blog => <Blog key={blog._id} blog={blog} />)
         }
