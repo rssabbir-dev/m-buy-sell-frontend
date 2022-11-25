@@ -25,11 +25,19 @@ const DisplaySellerProducts = () => {
 	if (isLoading) {
 		return <SpinnerThreeDot />;
 	}
-	return (
-		<div>
-			{products.map((product) => (
-				<DisplaySellerProductCard key={product._id} product={product} />
-			))}
+    return (
+		<div className='mb-10'>
+			<div className='divider'></div>
+			<h2 className='text-3xl text-center'>Add A New Product</h2>
+			<div className='divider'></div>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
+				{products.map((product) => (
+					<DisplaySellerProductCard
+						key={product._id}
+						product={product}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

@@ -1,20 +1,44 @@
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useAuthHeader from '../../../hooks/useAuthHeader';
+import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
+import AddNewCategoryModal from '../AddNewCategoryModal/AddNewCategoryModal';
 
 const AddProduct = () => {
+	const [categoryLoading, setCategoryLoading] = useState(false);
+	const [productLoading,setProductLoading] = useState(false)
+	const {
+		data: categories,
+		isLoading,
+		refetch,
+	} = useQuery({
+		queryKey: ['categories'],
+		queryFn: async () => {
+			const res = await axios.get(
+				`${process.env.REACT_APP_SERVER_URL}/categories`
+			);
+			return res.data;
+		},
+	});
+
 	const { user } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset
 	} = useForm();
 
 	const handleProductSubmit = (data) => {
 		handleGetImageLink(data);
 	};
 	const handleGetImageLink = (data) => {
+		setProductLoading(true)
 		const formData = new FormData();
 		formData.append('image', data.product_image[0]);
 		axios
@@ -27,7 +51,9 @@ const AddProduct = () => {
 			})
 			.catch((err) => console.log(err));
 	};
-
+	if (isLoading) {
+		return <SpinnerSeller />;
+	}
 	const handleAddProduct = (data, image) => {
 		const {
 			product_name,
@@ -40,11 +66,14 @@ const AddProduct = () => {
 			year_of_used,
 			category,
 		} = data;
+		const category_name = category.split('^^')[0];
+		const category_id = category.split('^^')[1];
 		const product = {
 			product_name,
 			product_description,
 			product_image: image,
-			category,
+			category_name,
+			category_id,
 			condition,
 			resell_price,
 			original_price,
@@ -56,40 +85,63 @@ const AddProduct = () => {
 			seller_uid: user.uid,
 			seller_image: user.photoURL,
 		};
-		axios
-			.post(
-				`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`,
-				product
-			)
-			.then((res) => {
-				console.log(res);
+		fetch(`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify(product),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.acknowledged) {
+					reset();
+					Swal.fire(
+						'Success',
+						'New Product Added',
+						'success'
+					);
+				}
+				setProductLoading(false)
 			})
 			.catch((err) => console.log(err));
 	};
 
-	/**
-	 * name ----
-	 * img ----
-	 * resell price ----
-	 * originial price ----
-	 * year of use ----
-	 * posted time
-	 * seller's name
-	 * verified tick
-	 * category name
-	 * category id
-	 * seller email
-	 * seller photo
-	 * seller uid
-	 * condition (excellent,good,fair), ----
-	 * seller phone number ----
-	 * seller location
-	 * product description ----
-	 * status(sold,unsold)
-	 */
+	const handleAddNewCategory = (event) => {
+		event.preventDefault();
+		setCategoryLoading(true);
+		const new_category = event.target.new_category.value;
+		fetch(`${process.env.REACT_APP_SERVER_URL}/categories/${user?.uid}`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify({ category_name: new_category }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.acknowledged) {
+					refetch();
+					event.target.new_category.value = '';
+					document.getElementById(
+						'add-new-category-modal'
+					).checked = false;
+					toast.success('New Category Added');
+				}
+				setCategoryLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				setCategoryLoading(false)
+			});
+	};
 	return (
-		<section className=''>
-			<h2 className='text-3xl'>Add A New Product</h2>
+		<section className='sm:w-[calc(100vw-300px)] mx-4 mb-10'>
+			<div className='divider'></div>
+			<h2 className='text-3xl text-center'>Add A New Product</h2>
+			<div className='divider'></div>
 			<div className='mx-auto'>
 				<div className='rounded-lg bg-white lg:col-span-3 mt-10'>
 					<form
@@ -164,12 +216,21 @@ const AddProduct = () => {
 									{...register('category')}
 									className='select select-bordered w-full'
 								>
-									<option disabled selected>
-										Who shot first?
-									</option>
-									<option value='1'>Han Solo</option>
-									<option>Greedo</option>
+									{categories.map((category) => (
+										<option
+											key={category._id}
+											value={`${category?.category_name}^^${category?._id}`}
+										>
+											{category?.category_name}
+										</option>
+									))}
 								</select>
+								<label
+									className='btn btn-sm m-1'
+									htmlFor='add-new-category-modal'
+								>
+									Add New
+								</label>
 							</div>
 						</div>
 						<div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
@@ -290,34 +351,41 @@ const AddProduct = () => {
 						</div>
 
 						<div className='mt-4'>
-							<button
-								type='submit'
-								className='inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto'
-							>
-								<span className='font-medium'>
-									{' '}
-									Add Product{' '}
-								</span>
-
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									className='ml-3 h-5 w-5'
-									fill='none'
-									viewBox='0 0 24 24'
-									stroke='currentColor'
+							{productLoading && <p>Product Adding....</p>}
+							{!productLoading && (
+								<button
+									type='submit'
+									className='inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto'
 								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										d='M14 5l7 7m0 0l-7 7m7-7H3'
-									/>
-								</svg>
-							</button>
+									<span className='font-medium'>
+										{' '}
+										Add Product{' '}
+									</span>
+
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										className='ml-3 h-5 w-5'
+										fill='none'
+										viewBox='0 0 24 24'
+										stroke='currentColor'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='M14 5l7 7m0 0l-7 7m7-7H3'
+										/>
+									</svg>
+								</button>
+							)}
 						</div>
 					</form>
 				</div>
 			</div>
+			<AddNewCategoryModal
+				categoryLoading={categoryLoading}
+				handleAddNewCategory={handleAddNewCategory}
+			/>
 		</section>
 	);
 };

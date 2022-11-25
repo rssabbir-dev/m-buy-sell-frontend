@@ -7,9 +7,12 @@ import AllSeller from '../pages/Admin/AllSeller/AllSeller';
 import ErrorElement from '../pages/ErrorElement/ErrorElement';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
+import ProductByCategory from '../pages/ProductByCategory/ProductByCategory';
 import Registration from '../pages/Registration/Registration';
 import AddProduct from '../pages/Seller/AddProduct/AddProduct';
 import DisplaySellerProducts from '../pages/Seller/DisplaySellerProducts/DisplaySellerProducts';
+import AdminRoute from './AdminRoute';
+import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
 
 export const router = createBrowserRouter([
@@ -24,6 +27,12 @@ export const router = createBrowserRouter([
 			{
 				path: '/login',
 				element: <Login />,
+			},
+			{
+				path: '/category/:id',
+				element: <PrivateRoute>
+					<ProductByCategory/>
+				</PrivateRoute>
 			},
 			{
 				path: '/registration',
@@ -41,33 +50,53 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/user/admin',
-		element: <AdminLayout />,
+		element: (
+			<PrivateRoute>
+				<AdminLayout />
+			</PrivateRoute>
+		),
 		children: [
 			{
 				path: '/user/admin',
-				element: <AllSeller />,
+				element: (
+					<AdminRoute>
+						<AllSeller />
+					</AdminRoute>
+				),
 			},
 			{
 				path: '/user/admin/buyers',
-				element: <AllBuyer />,
+				element: (
+					<AdminRoute>
+						<AllBuyer />
+					</AdminRoute>
+				),
 			},
 		],
 	},
 	{
 		path: '/user/seller',
 		element: (
-			<SellerRoute>
+			<PrivateRoute>
 				<SellerLayout />
-			</SellerRoute>
+			</PrivateRoute>
 		),
 		children: [
 			{
 				path: '/user/seller',
-				element: <AddProduct />,
+				element: (
+					<SellerRoute>
+						<AddProduct />
+					</SellerRoute>
+				),
 			},
 			{
 				path: '/user/seller/all-products',
-				element: <DisplaySellerProducts />,
+				element: (
+					<SellerRoute>
+						<DisplaySellerProducts />
+					</SellerRoute>
+				),
 			},
 		],
 	},

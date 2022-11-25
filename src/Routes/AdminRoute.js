@@ -6,8 +6,8 @@ import SpinnerSeller from '../pages/shared/Spinners/SpinnerSeller';
 
 const AdminRoute = ({ children }) => {
 	const [isAdmin, isAdminLoading] = useAdmin();
-	const { user, isUserLoading } = useContext(AuthContext);
-	if (isUserLoading || isAdminLoading) {
+	const { user, userLoading } = useContext(AuthContext);
+	if (userLoading || isAdminLoading) {
 		return <SpinnerSeller />;
 	}
 	if (user && isAdmin) {

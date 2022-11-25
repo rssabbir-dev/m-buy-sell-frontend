@@ -2,25 +2,39 @@ import React from 'react';
 
 const HomeBanner = () => {
     return (
-		<div
-			className='hero min-h-screen'
-			style={{
-				backgroundImage: `url("https://placeimg.com/1000/800/arch")`,
-			}}
-		>
-			<div className='hero-overlay bg-opacity-60'></div>
-			<div className='hero-content text-center text-neutral-content'>
-				<div className='max-w-md'>
-					<h1 className='mb-5 text-5xl font-bold'>Hello there</h1>
-					<p className='mb-5'>
-						Provident cupiditate voluptatem et in. Quaerat fugiat ut
-						assumenda excepturi exercitationem quasi. In deleniti
-						eaque aut repudiandae et a id nisi.
+		<section class='bg-gray-50'>
+			<div class='mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center'>
+				<div class='mx-auto max-w-xl text-center'>
+					<h1 class='text-3xl font-extrabold sm:text-5xl'>
+						Understand User Flow.
+						<strong class='font-extrabold text-red-700 sm:block'>
+							Increase Conversion.
+						</strong>
+					</h1>
+
+					<p class='mt-4 sm:text-xl sm:leading-relaxed'>
+						Lorem ipsum dolor sit amet consectetur, adipisicing
+						elit. Nesciunt illo tenetur fuga ducimus numquam ea!
 					</p>
-					<button className='btn btn-primary'>Get Started</button>
+
+					<div class='mt-8 flex flex-wrap justify-center gap-4'>
+						<a
+							class='block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto'
+							href='/get-started'
+						>
+							Get Started
+						</a>
+
+						<a
+							class='block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto'
+							href='/about'
+						>
+							Learn More
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 

@@ -12,7 +12,7 @@ import auth from '../../firebase/firebase.config';
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
-	const [userLoading, setUserLoading] = useState(false);
+	const [userLoading, setUserLoading] = useState(true);
 
 	const createUser = (email, password) => {
 		setUserLoading(true);
@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
 	};
 
 	const logOut = () => {
+		setUserLoading(true)
 		return signOut(auth);
 	};
 	useEffect(() => {
@@ -51,7 +52,7 @@ const AuthProvider = ({ children }) => {
 		updateUserProfileOnFirebase,
 		loginUser,
 		providerLogin,
-		logOut
+		logOut,
 	};
 	return (
 		<>

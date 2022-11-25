@@ -101,8 +101,10 @@ const AllSeller = () => {
 		});
 	};
 	return (
-		<div>
-			<h2 className='text-3xl'>All Users</h2>
+		<div className=' w-[calc(100vw-240px)]'>
+			<div className='divider'></div>
+			<h2 className='text-3xl text-center'>All Seller List</h2>
+			<div className='divider'></div>
 			<div className='overflow-x-auto'>
 				<table className='table w-full'>
 					<thead>
