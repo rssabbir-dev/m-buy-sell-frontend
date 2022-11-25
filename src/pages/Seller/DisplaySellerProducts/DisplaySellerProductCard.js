@@ -1,20 +1,11 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-const DisplaySellerProductCard = ({ product,handleProductDelete }) => {
-	const {
-		product_name,
-		product_image,
-		category,
-		_id
-	} = product;
-
-
+const DisplaySellerProductCard = ({ product, handleProductDelete }) => {
+	const { product_name, product_image, category_name, _id,status } = product;
 
 	return (
-		<div
-			className='block rounded-lg p-4 shadow-sm shadow-indigo-100'
-		>
+		<div className='block rounded-lg p-4 shadow-sm shadow-indigo-100'>
 			<img
 				alt='Home'
 				src={product_image}
@@ -30,14 +21,26 @@ const DisplaySellerProductCard = ({ product,handleProductDelete }) => {
 					</div>
 
 					<div>
-						<dt className='sr-only'>Address</dt>
+						<dt className=''>{status}</dt>
 
 						<dd className='font-medium'>{product_name}</dd>
 					</div>
 				</dl>
 
 				<div>
-					<button onClick={()=>handleProductDelete(_id)}>Delete</button>
+					<button
+						className='btn btn-sm btn-error'
+						onClick={() => handleProductDelete(_id)}
+					>
+						Delete
+					</button>
+					{status === 'unsold' && (
+						<button
+							className='btn btn-sm btn-primary'
+						>
+							Promote
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
