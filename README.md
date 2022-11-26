@@ -32,3 +32,8 @@ mBuy is a used mobile phone resell website
 - axios
 - date-fns
 - tanstack query or react query
+
+## Admin Access
+adminEmail: admin@mbuy.com
+
+adminPassword: 123456

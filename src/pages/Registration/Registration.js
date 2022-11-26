@@ -95,7 +95,7 @@ const Registration = () => {
 		axios
 			.post(`${process.env.REACT_APP_SERVER_URL}/users`, user)
 			.then((res) => {
-				console.log(res);
+				// console.log(res);
 			})
 			.catch((error) => {
 				console.log(error);
