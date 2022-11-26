@@ -72,7 +72,7 @@ const AdminLayout = () => {
 									</span>
 								</Link>
 								<Link
-									to='/user/admin/buyers'
+									to='/user/admin/reported-product'
 									href='#'
 									class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 								>

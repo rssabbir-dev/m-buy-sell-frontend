@@ -5,6 +5,7 @@ import MainLayout from '../layout/MainLayout/MainLayout';
 import SellerLayout from '../layout/SellerLayout/SellerLayout';
 import AllBuyer from '../pages/Admin/AllBuyer/AllBuyer';
 import AllSeller from '../pages/Admin/AllSeller/AllSeller';
+import AllReportedProduct from '../pages/Admin/ReportedProducts/AllReportedProduct';
 import Blogs from '../pages/Blogs/Blogs';
 import AllOrder from '../pages/Buyer/AllOrder/AllOrder';
 import ErrorElement from '../pages/ErrorElement/ErrorElement';
@@ -88,6 +89,14 @@ export const router = createBrowserRouter([
 				element: (
 					<AdminRoute>
 						<AllBuyer />
+					</AdminRoute>
+				),
+			},
+			{
+				path: '/user/admin/reported-product',
+				element: (
+					<AdminRoute>
+						<AllReportedProduct />
 					</AdminRoute>
 				),
 			},

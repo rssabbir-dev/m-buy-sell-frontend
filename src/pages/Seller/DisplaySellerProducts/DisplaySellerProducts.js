@@ -66,43 +66,40 @@ const DisplaySellerProducts = () => {
 	};
 
 	const handleProductPromote = (id) => {
-
-
-Swal.fire({
-	title: 'Do you want to Promote this Product?',
-	showDenyButton: true,
-	showCancelButton: false,
-	confirmButtonText: 'Confirm',
-	denyButtonText: `Don't Confirm`,
-}).then((result) => {
-	/* Read more about isConfirmed, isDenied below */
-	if (result.isConfirmed) {
-		fetch(
-			`${process.env.REACT_APP_SERVER_URL}/promote-product/${user?.uid}?id=${id}`,
-			{
-				method: 'PATCH',
-				headers: authHeader,
+		Swal.fire({
+			title: 'Do you want to Promote this Product?',
+			showDenyButton: true,
+			showCancelButton: false,
+			confirmButtonText: 'Confirm',
+			denyButtonText: `Don't Confirm`,
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				fetch(
+					`${process.env.REACT_APP_SERVER_URL}/promote-product/${user?.uid}?id=${id}`,
+					{
+						method: 'PATCH',
+						headers: authHeader,
+					}
+				)
+					.then((res) => res.json())
+					.then((data) => {
+						Swal.fire('Promoted Success!', '', 'success');
+						refetch();
+					})
+					.catch((err) => {
+						Swal.fire(
+							'Oops! Something was wrong, please try again',
+							'',
+							'error'
+						);
+					});
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info');
 			}
-		)
-			.then((res) => res.json())
-			.then((data) => {
-				Swal.fire('Promoted Success!', '', 'success');
-				refetch()
-			})
-			.catch((err) => {
-				Swal.fire(
-					'Oops! Something was wrong, please try again',
-					'',
-					'error'
-				);
-			});
-	} else if (result.isDenied) {
-		Swal.fire('Changes are not saved', '', 'info');
-	}
-});
+		});
 
 		console.log(id);
-		
 	};
 	if (isLoading) {
 		return <SpinnerSeller />;

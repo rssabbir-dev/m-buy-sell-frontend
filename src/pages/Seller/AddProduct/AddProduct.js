@@ -94,6 +94,8 @@ const AddProduct = () => {
 			createAt: new Date(),
 			status: 'unsold',
 			promote: false,
+			reported: false,
+			reportCount: 0,
 		};
 		fetch(`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`, {
 			method: 'POST',

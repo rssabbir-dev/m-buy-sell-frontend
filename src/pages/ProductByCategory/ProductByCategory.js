@@ -4,6 +4,8 @@ import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useAuthHeader from '../../hooks/useAuthHeader';
+import useBuyer from '../../hooks/useBuyer';
 import DisplaySellerProductCard from '../Seller/DisplaySellerProducts/DisplaySellerProductCard';
 import SpinnerSeller from '../shared/Spinners/SpinnerSeller';
 import BookProductModal from './BookProductModal';
@@ -11,10 +13,16 @@ import ProductByCategoryCard from './ProductByCategoryCard';
 
 const ProductByCategory = () => {
 	const params = useParams();
+	const [authHeader] = useAuthHeader();
 	const [bookedProduct, setBookedProduct] = useState({});
 	const [orderLoading, setOrderLoading] = useState(false);
+	const [isBuyer] = useBuyer();
 	const { user } = useContext(AuthContext);
-	const { data: products, isLoading } = useQuery({
+	const {
+		data: products,
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ['productsByCategory'],
 		queryFn: async () => {
 			const res = await axios.get(
@@ -85,6 +93,42 @@ const ProductByCategory = () => {
 			});
 	};
 
+	const handleReport = (id, reportCount) => {
+		Swal.fire({
+			title: 'Do you want to Report this Product?',
+			showDenyButton: true,
+			showCancelButton: false,
+			confirmButtonText: 'Confirm',
+			denyButtonText: `Don't Confirm`,
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				fetch(
+					`${process.env.REACT_APP_SERVER_URL}/report-product/${user?.uid}?id=${id}&reportCount=${reportCount}`,
+					{
+						method: 'PATCH',
+						headers: authHeader,
+					}
+				)
+					.then((res) => res.json())
+					.then((data) => {
+						Swal.fire('Reported Success!', '', 'success');
+						refetch();
+					})
+					.catch((err) => {
+						Swal.fire(
+							'Oops! Something was wrong, please try again',
+							'',
+							'error'
+						);
+					});
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info');
+			}
+		});
+
+		console.log(id);
+	};
 	return (
 		<div>
 			<p className='text-2xl'>All Product</p>
@@ -95,6 +139,8 @@ const ProductByCategory = () => {
 						setBookedProduct={setBookedProduct}
 						key={product._id}
 						product={product}
+						handleReport={handleReport}
+						isBuyer={isBuyer}
 					/>
 				))}
 			</div>

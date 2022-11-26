@@ -90,6 +90,7 @@ const Registration = () => {
 			photoURL,
 			role: data.role,
 			uid: uid,
+			status: 'unverified',
 		};
 		axios
 			.post(`${process.env.REACT_APP_SERVER_URL}/users`, user)
@@ -111,9 +112,7 @@ const Registration = () => {
 					onSubmit={handleSubmit(handleRegistration)}
 					className='mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl'
 				>
-					<p className='text-lg font-medium'>
-						Register an account
-					</p>
+					<p className='text-lg font-medium'>Register an account</p>
 					<div>
 						<label htmlFor='email' className='text-sm font-medium'>
 							Full Name
@@ -290,7 +289,8 @@ const Registration = () => {
 					)}
 
 					<p className='text-center text-sm text-gray-500'>
-						Have an account? <Link className='underline' to='/login'>
+						Have an account?{' '}
+						<Link className='underline' to='/login'>
 							Login
 						</Link>
 					</p>

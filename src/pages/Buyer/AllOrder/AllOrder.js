@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
@@ -49,7 +50,10 @@ const AllOrder = () => {
 									<div class='avatar'>
 										<div class='w-16 rounded'>
 											<img
-												src={order.product_info?.product_image}
+												src={
+													order.product_info
+														?.product_image
+												}
 												alt='Tailwind-CSS-Avatar-component'
 											/>
 										</div>
@@ -59,14 +63,12 @@ const AllOrder = () => {
 								<td>{order.seller_info?.seller_name}</td>
 								<td>${order.product_info?.product_price}</td>
 								<td>
-									<button
-										// onClick={() =>
-										// 	handleUserDelete(order._id)
-										// }
-										className='btn btn-xs btn-danger'
+									<Link
+										to={`/payment/${order.product_info?.product_id}`}
+										className='btn btn-xs btn-primary'
 									>
-										Delete
-									</button>
+										Pay
+									</Link>
 								</td>
 							</tr>
 						))}

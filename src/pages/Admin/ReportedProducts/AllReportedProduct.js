@@ -1,24 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { MdOutlineVerifiedUser } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
-const AllSeller = () => {
+const AllReportedProduct = () => {
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const {
-		data: sellers,
+		data: products,
 		isLoading,
 		refetch,
 	} = useQuery({
-		queryKey: ['sellers', user?.uid],
+		queryKey: ['reportedProducts', user?.uid],
 		queryFn: async () => {
 			const res = await axios.get(
-				`${process.env.REACT_APP_SERVER_URL}/users-by-role/${user?.uid}?role=seller`,
+				`${process.env.REACT_APP_SERVER_URL}/reported-products/${user?.uid}`,
 				{
 					headers: authHeader,
 				}
@@ -29,54 +28,18 @@ const AllSeller = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
-	const handleConfirmVerify = (id) => {
+	const handleDeleteReportedProduct = (id) => {
 		Swal.fire({
-			title: 'Do you want to verify this seller?',
+			title: 'Do you want to delete this Product?',
 			showDenyButton: true,
 			showCancelButton: false,
-			confirmButtonText: 'Confirm Verified',
+			confirmButtonText: 'Confirm',
 			denyButtonText: `Don't Confirm`,
 		}).then((result) => {
 			/* Read more about isConfirmed, isDenied below */
 			if (result.isConfirmed) {
 				fetch(
-					`${process.env.REACT_APP_SERVER_URL}/seller-verify/${user?.uid}?id=${id}`,
-					{
-						method: 'PATCH',
-						headers: authHeader,
-					}
-				)
-					.then((res) => res.json())
-					.then((data) => {
-						if (data.modifiedCount) {
-							refetch();
-							Swal.fire('Verified Success!', '', 'success');
-						}
-					})
-					.catch((err) => {
-						Swal.fire(
-							'Oops! Something was wrong, please try again',
-							'',
-							'error'
-						);
-					});
-			} else if (result.isDenied) {
-				Swal.fire('Changes are not saved', '', 'info');
-			}
-		});
-	};
-	const handleUserDelete = (id) => {
-		Swal.fire({
-			title: 'Do you want to delete this buyer?',
-			showDenyButton: true,
-			showCancelButton: false,
-			confirmButtonText: 'Confirm Verified',
-			denyButtonText: `Don't Confirm`,
-		}).then((result) => {
-			/* Read more about isConfirmed, isDenied below */
-			if (result.isConfirmed) {
-				fetch(
-					`${process.env.REACT_APP_SERVER_URL}/user-delete/${user?.uid}?id=${id}`,
+					`${process.env.REACT_APP_SERVER_URL}/report-product-delete/${user?.uid}?id=${id}`,
 					{
 						method: 'DELETE',
 						headers: authHeader,
@@ -100,63 +63,98 @@ const AllSeller = () => {
 				Swal.fire('Changes are not saved', '', 'info');
 			}
 		});
-	};
+    };
+    const handleReportSafe = (id) => {
+        Swal.fire({
+			title: 'Do you want to mark this product as safe?',
+			showDenyButton: true,
+			showCancelButton: false,
+			confirmButtonText: 'Confirm',
+			denyButtonText: `Don't Confirm`,
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				fetch(
+					`${process.env.REACT_APP_SERVER_URL}/report-product-safe/${user?.uid}?id=${id}`,
+					{
+						method: 'PATCH',
+						headers: authHeader,
+					}
+				)
+					.then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+						if (data.modifiedCount) {
+							Swal.fire('Report Undo Success!', '', 'success');
+							refetch();
+						}
+					})
+					.catch((err) => {
+						Swal.fire(
+							'Oops! Something was wrong, please try again',
+							'',
+							'error'
+						);
+					});
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info');
+			}
+		});
+    }
 	return (
 		<div className='w-screen md:w-[calc(100vw-240px)]'>
 			<div className='divider'></div>
-			<h2 className='text-3xl text-center'>All Seller List</h2>
+			<h2 className='text-3xl text-center'>All Reported Products</h2>
 			<div className='divider'></div>
 			<div className='overflow-x-auto'>
 				<table className='table w-full'>
 					<thead>
 						<tr>
-							<th></th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Status</th>
-							<th>Delete</th>
+							<th>No.</th>
+							<th>Product Image</th>
+							<th>Product Name</th>
+							<th>Seller Name</th>
+							<th>Reported By</th>
+							<th>Operation</th>
 						</tr>
 					</thead>
 					<tbody>
-						{sellers.map((seller, i) => (
-							<tr key={seller._id}>
+						{products.map((product, i) => (
+							<tr key={product._id}>
 								<th>{i + 1}</th>
-								{/* <td>{seller.displayName}</td> */}
-								<td className='flex items-center'>
-									Post By: {seller.displayName}{' '}
-									<span>
-										{seller?.status === 'verified' ? (
-											<MdOutlineVerifiedUser className='text-primary text-sm rounded-full ml-1' />
-										) : (
-											''
-										)}
-									</span>
-								</td>
-								<td>{seller.email}</td>
-								<td>
-									{seller?.status !== 'verified' ? (
-										<button
-											onClick={() =>
-												handleConfirmVerify(seller._id)
-											}
-											className='btn btn-xs btn-primary'
-										>
-											Confirm Verify
-										</button>
-									) : (
-										<p className='text-sm text-green-500 text-bold'>
-											Verified
-										</p>
-									)}
-								</td>
-								<td>
+								<th>
+									<div class='avatar'>
+										<div class='w-16 rounded'>
+											<img
+												src={product.product_image}
+												alt='Tailwind-CSS-Avatar-component'
+											/>
+										</div>
+									</div>
+								</th>
+								<td>{product.product_name}</td>
+								<td>{product.seller_name}</td>
+								<td>{product.reportCount} User</td>
+								<td className='space-x-2'>
 									<button
 										onClick={() =>
-											handleUserDelete(seller._id)
+											handleDeleteReportedProduct(
+												product._id
+											)
 										}
-										className='btn btn-xs btn-danger'
+										className='btn btn-xs btn-error'
 									>
 										Delete
+									</button>
+									<button
+										onClick={() =>
+											handleReportSafe(
+												product._id
+											)
+										}
+										className='btn btn-xs btn-success'
+									>
+										Safe
 									</button>
 								</td>
 							</tr>
@@ -168,4 +166,4 @@ const AllSeller = () => {
 	);
 };
 
-export default AllSeller;
+export default AllReportedProduct;

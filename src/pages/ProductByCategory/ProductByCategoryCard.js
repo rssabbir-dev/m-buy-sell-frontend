@@ -1,8 +1,13 @@
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { MdOutlineVerifiedUser } from 'react-icons/md';
+import { MdOutlineVerifiedUser, MdReportProblem } from 'react-icons/md';
 
-const ProductByCategoryCard = ({ product, setBookedProduct }) => {
+const ProductByCategoryCard = ({
+	product,
+	setBookedProduct,
+	handleReport,
+	isBuyer,
+}) => {
 	const [verifiedSeller, setVerifiedSeller] = useState(false);
 	const {
 		product_name,
@@ -20,6 +25,7 @@ const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 		seller_uid,
 		seller_image,
 		createAt,
+		reported,
 	} = product;
 
 	useEffect(() => {
@@ -68,13 +74,32 @@ const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 					</div>
 					<div className='mb-3 text-right'></div>
 				</div>
-				<label
-					htmlFor='book-product-modal'
-					className='btn btn-block btn-primary'
-					onClick={() => setBookedProduct(product)}
-				>
-					Book Now
-				</label>
+				<div className='flex gap-2 justify-between'>
+					{isBuyer ? (
+						<>
+							<label
+								htmlFor='book-product-modal'
+								className='btn btn-primary'
+								onClick={() => setBookedProduct(product)}
+							>
+								Book Now
+							</label>
+							<button
+								onClick={() =>
+									handleReport(
+										product._id,
+										product.reportCount
+									)
+								}
+								className='btn btn-error text-white'
+							>
+								<MdReportProblem /> Report
+							</button>
+						</>
+					) : (
+						<p className='text-red-400 italic font-bold'>Please login with buyer account for buy this product</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);
