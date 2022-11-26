@@ -9,13 +9,17 @@ const DisplaySellerProductCard = ({
 		product;
 
 	return (
-		<div className='block rounded-lg p-4 shadow-sm shadow-indigo-100'>
-			<img
-				alt='Home'
-				src={product_image}
-				className='h-56 w-full rounded-md object-cover'
-			/>
-
+		<div className='relative block rounded-lg p-4 shadow-sm shadow-indigo-100 h-full'>
+			<div className=''>
+				<img
+					alt='Home'
+					src={product_image}
+					className='h-56 w-full rounded-md object-contain'
+				/>
+				<span class='absolute top-4 z-10 inline-flex items-center rounded-full bg-gray-400 px-3 py-1 text-xs font-semibold text-white'>
+					{category_name}
+				</span>
+			</div>
 			<div className='mt-2'>
 				<dl>
 					<div>

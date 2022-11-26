@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { format } from 'date-fns';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -29,6 +30,9 @@ const AddProduct = () => {
 	});
 
 	const { user } = useContext(AuthContext);
+	const capitalizeFirstLetter = (string) => {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
 	const {
 		register,
 		handleSubmit,
@@ -56,6 +60,7 @@ const AddProduct = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
+
 	const handleAddProduct = (data, image) => {
 		const {
 			product_name,
@@ -71,8 +76,8 @@ const AddProduct = () => {
 		const category_name = category.split('^^')[0];
 		const category_id = category.split('^^')[1];
 		const product = {
-			product_name,
-			product_description,
+			product_name: capitalizeFirstLetter(product_name),
+			product_description: capitalizeFirstLetter(product_description),
 			product_image: image,
 			category_name,
 			category_id,
@@ -80,7 +85,7 @@ const AddProduct = () => {
 			resell_price,
 			original_price,
 			year_of_used,
-			seller_location,
+			seller_location: capitalizeFirstLetter(seller_location),
 			seller_phone,
 			seller_email: user.email,
 			seller_name: user.displayName,
@@ -88,7 +93,7 @@ const AddProduct = () => {
 			seller_image: user.photoURL,
 			createAt: new Date(),
 			status: 'unsold',
-			promote:false,
+			promote: false,
 		};
 		fetch(`${process.env.REACT_APP_SERVER_URL}/products/${user?.uid}`, {
 			method: 'POST',
@@ -113,7 +118,9 @@ const AddProduct = () => {
 	const handleAddNewCategory = (event) => {
 		event.preventDefault();
 		setCategoryLoading(true);
-		const new_category = event.target.new_category.value;
+		const new_category = capitalizeFirstLetter(
+			event.target.new_category.value
+		);
 		fetch(`${process.env.REACT_APP_SERVER_URL}/categories/${user?.uid}`, {
 			method: 'POST',
 			headers: {

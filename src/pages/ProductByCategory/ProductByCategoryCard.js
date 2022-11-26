@@ -1,6 +1,6 @@
-import axios from 'axios';
+import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { TiTick } from 'react-icons/ti';
+import { MdOutlineVerifiedUser } from 'react-icons/md';
 
 const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 	const [verifiedSeller, setVerifiedSeller] = useState(false);
@@ -46,9 +46,9 @@ const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 
 				<div className='text-xs uppercase'>
 					<div>
-						<p>used: {year_of_used} year</p>
 						<p className=''>Resell Price: ${resell_price}</p>
 						<p>Original Price: ${original_price}</p>
+						<p>used: {year_of_used} year</p>
 					</div>
 
 					<div className='my-3'>
@@ -56,7 +56,7 @@ const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 							Post By: {seller_name}{' '}
 							<span>
 								{verifiedSeller ? (
-									<TiTick className='text-primary text-sm bg-slate-300 rounded-full ml-1' />
+									<MdOutlineVerifiedUser className='text-primary text-sm rounded-full ml-1' />
 								) : (
 									''
 								)}
@@ -64,7 +64,7 @@ const ProductByCategoryCard = ({ product, setBookedProduct }) => {
 						</p>
 
 						<p className=''>Location: {seller_location}</p>
-						<p>Date : {createAt}</p>
+						<p>Date : {format(new Date(createAt), 'Pp')}</p>
 					</div>
 					<div className='mb-3 text-right'></div>
 				</div>

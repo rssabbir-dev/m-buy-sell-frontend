@@ -154,7 +154,7 @@ const Login = () => {
 					</div>
 
 					{loginUserLoading && (
-						<div className='flex justify-center'>
+						<div className=''>
 							<SpinnerThreeDot />
 						</div>
 					)}

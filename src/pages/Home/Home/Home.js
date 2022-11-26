@@ -5,11 +5,11 @@ import HomeBanner from '../HomeBanner/HomeBanner';
 
 const Home = () => {
 	return (
-		<>
+		<div className='space-y-20'>
 			<HomeBanner />
 			<DisplayPromoteProduct />
 			<DisplayCategories />
-		</>
+		</div>
 	);
 };
 
