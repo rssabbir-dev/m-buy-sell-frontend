@@ -46,11 +46,10 @@ const Registration = () => {
 				body: formData,
 			}
 		)
-			.then((res) => {
-				console.log(res.data?.data?.url);
-				savedUserInDb(data, user?.user?.uid, res.data?.data?.url);
-				handleUpdateUserProfile(data?.name, res.data?.data?.url);
-				console.log(res);
+			.then((res) => res.json())
+			.then((data) => {
+				savedUserInDb(data, user?.user?.uid, data.data?.url);
+				handleUpdateUserProfile(data?.name, data.data?.url);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -88,7 +87,7 @@ const Registration = () => {
 		const user = {
 			displayName: data.name,
 			email: data.email,
-			photoURL,
+			photoURL: photoURL,
 			role: data.role,
 			uid: uid,
 			status: 'unverified',

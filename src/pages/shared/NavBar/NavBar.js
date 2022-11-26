@@ -4,7 +4,7 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
 import useSeller from '../../../hooks/useSeller';
-import logo from '../../../assets/mbuy_.logo.png'
+import logo from '../../../assets/mbuy_.logo.png';
 import toast from 'react-hot-toast';
 
 const NavBar = () => {
@@ -12,16 +12,13 @@ const NavBar = () => {
 	const handleLogOut = () => {
 		logOut()
 			.then(() => {
-				toast.success('Logout')
+				toast.success('Logout');
 			})
 			.catch((err) => console.log(err));
 	};
 	const [isAdmin] = useAdmin();
 	const [isSeller] = useSeller();
 	const [isBuyer] = useBuyer();
-	console.log('admin', isAdmin);
-	console.log('seller', isSeller);
-	console.log('buyer', isBuyer);
 
 	const menuItems = (
 		<>
@@ -64,7 +61,7 @@ const NavBar = () => {
 					</ul>
 				</div>
 				<Link to='/' className='w-28'>
-					<img src={logo} alt="" />
+					<img src={logo} alt='' />
 				</Link>
 			</div>
 			<div className='navbar-center hidden lg:flex'>
@@ -99,8 +96,8 @@ const NavBar = () => {
 										Seller Dashboard
 									</Link>
 								)}
-								{!isAdmin && !isSeller && (
-									<Link to='/user/buyer'>Dashboard</Link>
+								{isBuyer && (
+									<Link to='/user/buyer'>Buyer Dashboard</Link>
 								)}
 							</li>
 							<li>

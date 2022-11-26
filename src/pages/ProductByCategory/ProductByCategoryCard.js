@@ -41,11 +41,11 @@ const ProductByCategoryCard = ({
 		}
 	}, [seller_uid]);
 	return (
-		<div className='block rounded-lg p-4 shadow-sm shadow-indigo-100'>
+		<div className='block rounded-lg p-4 shadow-sm hover:shadow-md shadow-indigo-100 h-full'>
 			<img
 				alt='Home'
 				src={product_image}
-				className='h-56 w-full rounded-md object-cover'
+				className='h-56 w-full rounded-md object-contain'
 			/>
 
 			<div className='mt-2'>

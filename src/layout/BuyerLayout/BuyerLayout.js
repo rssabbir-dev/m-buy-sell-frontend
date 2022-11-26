@@ -13,8 +13,8 @@ const BuyerLayout = () => {
 			<label
 				onClick={() => setIsOpen(!isOpen)}
 				tabIndex={0}
-				className={`btn btn-circle btn-outline btn-ghost bottom-5 left-5 fixed z-20 bg-white  md:hidden ${
-					isOpen && 'left-56'
+				className={`btn btn-circle btn-outline btn-ghost top-10 left-5 fixed z-20 bg-white  md:hidden ${
+					isOpen && 'left-[213px]'
 				} transition-all`}
 			>
 				<svg

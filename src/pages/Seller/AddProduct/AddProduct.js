@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
+import SpinnerThreeDot from '../../shared/Spinners/SpinnerThreeDot';
 import AddNewCategoryModal from '../AddNewCategoryModal/AddNewCategoryModal';
 
 const AddProduct = () => {
@@ -363,7 +364,7 @@ const AddProduct = () => {
 						</div>
 
 						<div className='mt-4'>
-							{productLoading && <p>Product Adding....</p>}
+							{productLoading && <SpinnerThreeDot/>}
 							{!productLoading && (
 								<button
 									type='submit'
