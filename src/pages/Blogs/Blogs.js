@@ -5,6 +5,7 @@ import SpinnerSeller from '../shared/Spinners/SpinnerSeller';
 import Blog from './Blog';
 
 const Blogs = () => {
+	document.title = 'Blogs - mBuy';
 	const { data: blogs, isLoading } = useQuery({
 		queryKey: ['blogs'],
 		queryFn: async () => {

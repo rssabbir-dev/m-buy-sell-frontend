@@ -8,6 +8,7 @@ import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
 const AllSeller = () => {
+	document.title = 'All Seller - Admin Dashboard';
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const {
@@ -123,7 +124,7 @@ const AllSeller = () => {
 								<th>{i + 1}</th>
 								{/* <td>{seller.displayName}</td> */}
 								<td className='flex items-center'>
-									Post By: {seller.displayName}{' '}
+									{seller.displayName}{' '}
 									<span>
 										{seller?.status === 'verified' ? (
 											<MdOutlineVerifiedUser className='text-primary text-sm rounded-full ml-1' />

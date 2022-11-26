@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import SpinnerThreeDot from '../shared/Spinners/SpinnerThreeDot';
 
 const Registration = () => {
+	document.title = 'Registration Form  - mBuy';
 	const { createUser, updateUserProfileOnFirebase, logOut } =
 		useContext(AuthContext);
 	const [createUserLoading, setCreateUserLoading] = useState(false);

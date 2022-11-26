@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import SpinnerThreeDot from '../shared/Spinners/SpinnerThreeDot';
 
 const Login = () => {
+	document.title = 'Login - mBuy';
 	const { loginUser } = useContext(AuthContext);
 	const [loginUserLoading, setLoginUserLoading] = useState(false);
 	const navigate = useNavigate();

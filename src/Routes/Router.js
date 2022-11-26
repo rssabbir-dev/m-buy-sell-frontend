@@ -12,6 +12,7 @@ import ErrorElement from '../pages/ErrorElement/ErrorElement';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import Home from '../pages/Home/Home/Home';
 import Login from '../pages/Login/Login';
+import PaymentPage from '../pages/Payment/PaymentPage/PaymentPage';
 import ProductByCategory from '../pages/ProductByCategory/ProductByCategory';
 import Registration from '../pages/Registration/Registration';
 import AddProduct from '../pages/Seller/AddProduct/AddProduct';
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/registration',
 				element: <Registration />,
+			},
+			{
+				path: '/payment/:id',
+				element: <PaymentPage />,
 			},
 			{
 				path: '/seller-not-found',

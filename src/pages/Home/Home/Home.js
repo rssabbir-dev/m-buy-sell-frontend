@@ -4,6 +4,7 @@ import DisplayCategories from '../DisplayCategories/DisplayCategories';
 import HomeBanner from '../HomeBanner/HomeBanner';
 
 const Home = () => {
+	document.title = 'Home - mBuy'
 	return (
 		<div className='space-y-20'>
 			<HomeBanner />

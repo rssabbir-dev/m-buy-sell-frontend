@@ -5,7 +5,7 @@ const DisplaySellerProductCard = ({
 	handleProductDelete,
 	handleProductPromote,
 }) => {
-	const { product_name, product_image, category_name, _id, status, promote } =
+	const { product_name, product_image, category_name, _id, order_status, promote } =
 		product;
 
 	return (
@@ -29,13 +29,13 @@ const DisplaySellerProductCard = ({
 					</div>
 
 					<div className='uppercase'>
-						{status === 'sold' ? (
+						{order_status ? (
 							<div className='text-xs badge badge-success badge-outline'>
-								{status}
+								SOLD
 							</div>
 						) : (
 							<div className='text-xs badge badge-error badge-outline'>
-								{status}
+								UNSOLD
 							</div>
 						)}
 					</div>
@@ -48,7 +48,7 @@ const DisplaySellerProductCard = ({
 					>
 						Delete
 					</button>
-					{status === 'unsold' && !promote && (
+					{!order_status && !promote && (
 						<button
 							className='btn btn-sm btn-primary'
 							onClick={() => handleProductPromote(_id)}

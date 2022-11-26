@@ -12,6 +12,7 @@ import BookProductModal from './BookProductModal';
 import ProductByCategoryCard from './ProductByCategoryCard';
 
 const ProductByCategory = () => {
+	document.title = 'Category Products - mBuy';
 	const params = useParams();
 	const [authHeader] = useAuthHeader();
 	const [bookedProduct, setBookedProduct] = useState({});
@@ -59,6 +60,7 @@ const ProductByCategory = () => {
 				seller_image: bookedProduct.seller_image,
 				seller_location: bookedProduct.seller_location,
 			},
+			order_status: 'unpaid',
 		};
 		setOrderLoading(true);
 		fetch(`${process.env.REACT_APP_SERVER_URL}/orders/${user?.uid}`, {

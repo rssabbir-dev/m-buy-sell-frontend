@@ -4,6 +4,7 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
 import useSeller from '../../../hooks/useSeller';
+import logo from '../../../assets/mbuy_.logo.png'
 
 const NavBar = () => {
 	const { user, logOut } = useContext(AuthContext);
@@ -33,7 +34,7 @@ const NavBar = () => {
 		</>
 	);
 	return (
-		<div className='navbar bg-base-100'>
+		<div className='navbar bg-base-100 px-10 fixed top-0'>
 			<div className='navbar-start'>
 				<div className='dropdown'>
 					<label tabIndex={0} className='btn btn-ghost lg:hidden'>
@@ -59,8 +60,8 @@ const NavBar = () => {
 						{menuItems}
 					</ul>
 				</div>
-				<Link to='/' className='btn btn-ghost normal-case text-xl'>
-					mBuy
+				<Link to='/' className='w-28'>
+					<img src={logo} alt="" />
 				</Link>
 			</div>
 			<div className='navbar-center hidden lg:flex'>

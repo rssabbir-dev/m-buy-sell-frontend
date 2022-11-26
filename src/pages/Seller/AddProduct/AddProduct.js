@@ -12,6 +12,7 @@ import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 import AddNewCategoryModal from '../AddNewCategoryModal/AddNewCategoryModal';
 
 const AddProduct = () => {
+	document.title = 'Add New Product - Seller Dashboard';
 	const [categoryLoading, setCategoryLoading] = useState(false);
 	const [productLoading, setProductLoading] = useState(false);
 	const navigate = useNavigate();
@@ -92,7 +93,7 @@ const AddProduct = () => {
 			seller_uid: user.uid,
 			seller_image: user.photoURL,
 			createAt: new Date(),
-			status: 'unsold',
+			order_status: false,
 			promote: false,
 			reported: false,
 			reportCount: 0,

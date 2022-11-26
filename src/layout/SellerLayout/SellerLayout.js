@@ -3,17 +3,21 @@ import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { GrChapterAdd } from 'react-icons/gr';
 import { BsBorderAll } from 'react-icons/bs';
+import logo from '../../assets/mbuy_.logo.png'
 
 
 const SellerLayout = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const {user} = useContext(AuthContext)
+	const { user } = useContext(AuthContext)
+	document.title = 'Add Product - Seller Dashboard';
 	return (
 		<div className='h-screen'>
 			<label
 				onClick={() => setIsOpen(!isOpen)}
 				tabIndex={0}
-				className={`btn btn-circle btn-outline btn-ghost bottom-5 left-5 fixed z-20 bg-white  md:hidden ${isOpen && 'left-56'} transition-all`}
+				className={`btn btn-circle btn-outline btn-ghost bottom-5 left-5 fixed z-20 bg-white  md:hidden ${
+					isOpen && 'left-56'
+				} transition-all`}
 			>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
@@ -38,8 +42,8 @@ const SellerLayout = () => {
 				>
 					<div class='flex h-screen flex-col justify-between border-r bg-white'>
 						<div class='px-4 py-6'>
-							<Link to='/' className='btn btn-ghost'>
-								mBuy
+							<Link to='/' className='flex justify-center'>
+								<img className='w-28' src={logo} alt='' />
 							</Link>
 
 							<nav
@@ -51,7 +55,7 @@ const SellerLayout = () => {
 									href='#'
 									class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 								>
-									<GrChapterAdd/>
+									<GrChapterAdd />
 
 									<span class='ml-3 text-sm font-medium'>
 										{' '}
@@ -63,7 +67,7 @@ const SellerLayout = () => {
 									href='#'
 									class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 								>
-									<BsBorderAll/>
+									<BsBorderAll />
 
 									<span class='ml-3 text-sm font-medium'>
 										{' '}
@@ -74,10 +78,7 @@ const SellerLayout = () => {
 						</div>
 
 						<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-							<Link
-								
-								class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'
-							>
+							<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 								<img
 									alt='Man'
 									src={user?.photoURL}

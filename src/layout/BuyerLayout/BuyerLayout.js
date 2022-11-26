@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { BsBorderAll } from 'react-icons/bs';
+import logo from '../../assets/mbuy_.logo.png'
 
 const BuyerLayout = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { user } = useContext(AuthContext);
+	document.title = 'My Order - Buyer Dashboard';
 	return (
 		<div className='h-screen'>
 			<label
@@ -38,8 +40,8 @@ const BuyerLayout = () => {
 				>
 					<div class='flex h-screen flex-col justify-between border-r bg-white'>
 						<div class='px-4 py-6'>
-							<Link to='/' className='btn btn-ghost'>
-								mBuy
+							<Link to='/' className='flex justify-center'>
+								<img className='w-28' src={logo} alt='' />
 							</Link>
 
 							<nav
@@ -62,9 +64,7 @@ const BuyerLayout = () => {
 						</div>
 
 						<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-							<Link
-								class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'
-							>
+							<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 								<img
 									alt='Man'
 									src={user?.photoURL}

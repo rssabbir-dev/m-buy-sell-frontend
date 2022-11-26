@@ -7,6 +7,7 @@ import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
 const AllReportedProduct = () => {
+    document.title = 'Reported Products - Admin Dashboard';
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const {

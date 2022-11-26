@@ -26,6 +26,7 @@ const ProductByCategoryCard = ({
 		seller_image,
 		createAt,
 		reported,
+		order_status,
 	} = product;
 
 	useEffect(() => {
@@ -77,7 +78,7 @@ const ProductByCategoryCard = ({
 				<div className='flex gap-2 justify-between'>
 					{isBuyer ? (
 						<>
-							<label
+							{!order_status ? <><label
 								htmlFor='book-product-modal'
 								className='btn btn-primary'
 								onClick={() => setBookedProduct(product)}
@@ -94,7 +95,7 @@ const ProductByCategoryCard = ({
 								className='btn btn-error text-white'
 							>
 								<MdReportProblem /> Report
-							</button>
+							</button></> : <p>sold out</p>}
 						</>
 					) : (
 						<p className='text-red-400 italic font-bold'>Please login with buyer account for buy this product</p>

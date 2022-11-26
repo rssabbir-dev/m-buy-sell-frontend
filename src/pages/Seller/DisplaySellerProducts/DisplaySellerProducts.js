@@ -5,10 +5,10 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
-import SpinnerThreeDot from '../../shared/Spinners/SpinnerThreeDot';
 import DisplaySellerProductCard from './DisplaySellerProductCard';
 
 const DisplaySellerProducts = () => {
+	document.title = 'All Products - Seller Dashboard';
 	const { user } = useContext(AuthContext);
 	const [authHeader] = useAuthHeader();
 

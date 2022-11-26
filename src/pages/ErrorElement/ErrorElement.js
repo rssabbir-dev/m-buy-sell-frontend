@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const ErrorElement = ({ message }) => {
+	document.title = '403 - Access Forbidden';
 	const { logOut } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const handleLogout = () => {

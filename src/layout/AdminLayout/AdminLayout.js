@@ -4,10 +4,12 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { ImUsers } from 'react-icons/im';
 import {  HiUsers } from 'react-icons/hi';
 import { MdReportProblem } from 'react-icons/md';
+import logo from '../../assets/mbuy_.logo.png'
 
 const AdminLayout = () => {
 	const { user } = useContext(AuthContext);
 	const [isOpen, setIsOpen] = useState(false);
+	document.title = 'All Seller - Admin Dashboard'
 	return (
 		<div className='h-screen'>
 			<label
@@ -40,8 +42,8 @@ const AdminLayout = () => {
 				>
 					<div class='flex h-screen flex-col justify-between border-r bg-white'>
 						<div class='px-4 py-6'>
-							<Link to='/' className='btn btn-ghost'>
-								mBuy
+							<Link to='/' className='flex justify-center'>
+								<img className='w-28' src={logo} alt='' />
 							</Link>
 
 							<nav

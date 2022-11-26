@@ -7,6 +7,7 @@ import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
 const AllOrder = () => {
+	document.title = 'My Order - Buyer Dashboard';
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const { data: orders, isLoading } = useQuery({
@@ -63,12 +64,17 @@ const AllOrder = () => {
 								<td>{order.seller_info?.seller_name}</td>
 								<td>${order.product_info?.product_price}</td>
 								<td>
-									<Link
-										to={`/payment/${order.product_info?.product_id}`}
-										className='btn btn-xs btn-primary'
-									>
-										Pay
-									</Link>
+									{!order.order_status && (
+										<Link
+											to={`/payment/${order._id}`}
+											className='btn btn-xs btn-primary'
+										>
+											Pay
+										</Link>
+									)}
+									{order.order_status && (
+										<p className='text-green-500'>PAID</p>
+									)}
 								</td>
 							</tr>
 						))}
