@@ -95,7 +95,7 @@ const ProductByCategoryCard = ({
 								className='btn btn-error text-white'
 							>
 								<MdReportProblem /> Report
-							</button></> : <p>sold out</p>}
+							</button></> : <p className='uppercase text-red-400 italic font-bold'>sold out</p>}
 						</>
 					) : (
 						<p className='text-red-400 italic font-bold'>Please login with buyer account for buy this product</p>

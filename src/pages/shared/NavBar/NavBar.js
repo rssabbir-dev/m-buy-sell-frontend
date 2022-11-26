@@ -5,12 +5,15 @@ import useAdmin from '../../../hooks/useAdmin';
 import useBuyer from '../../../hooks/useBuyer';
 import useSeller from '../../../hooks/useSeller';
 import logo from '../../../assets/mbuy_.logo.png'
+import toast from 'react-hot-toast';
 
 const NavBar = () => {
 	const { user, logOut } = useContext(AuthContext);
 	const handleLogOut = () => {
 		logOut()
-			.then(() => {})
+			.then(() => {
+				toast.success('Logout')
+			})
 			.catch((err) => console.log(err));
 	};
 	const [isAdmin] = useAdmin();
@@ -34,7 +37,7 @@ const NavBar = () => {
 		</>
 	);
 	return (
-		<div className='navbar bg-base-100 px-10 fixed top-0'>
+		<div className='navbar bg-base-100 px-10 fixed top-0 z-50'>
 			<div className='navbar-start'>
 				<div className='dropdown'>
 					<label tabIndex={0} className='btn btn-ghost lg:hidden'>

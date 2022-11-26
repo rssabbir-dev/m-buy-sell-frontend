@@ -40,7 +40,7 @@ const AllOrder = () => {
 							<th>Product Name</th>
 							<th>Seller Name</th>
 							<th>Price</th>
-							<th>Delete</th>
+							<th>Payment</th>
 						</tr>
 					</thead>
 					<tbody>

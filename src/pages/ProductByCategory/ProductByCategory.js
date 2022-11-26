@@ -60,7 +60,7 @@ const ProductByCategory = () => {
 				seller_image: bookedProduct.seller_image,
 				seller_location: bookedProduct.seller_location,
 			},
-			order_status: 'unpaid',
+			order_status: false,
 		};
 		setOrderLoading(true);
 		fetch(`${process.env.REACT_APP_SERVER_URL}/orders/${user?.uid}`, {
@@ -132,7 +132,7 @@ const ProductByCategory = () => {
 		console.log(id);
 	};
 	return (
-		<div>
+		<div className='my-10'>
 			<p className='text-2xl'>All Product</p>
 			<div className='divider'></div>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>

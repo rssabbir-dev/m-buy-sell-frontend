@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import ProviderLogin from '../shared/ProviderLogin/ProviderLogin';
 import SpinnerThreeDot from '../shared/Spinners/SpinnerThreeDot';
 
 const Login = () => {
@@ -167,6 +168,8 @@ const Login = () => {
 							Login
 						</button>
 					)}
+					<div className='divider'>OR</div>
+					<ProviderLogin/>
 
 					<p className='text-center text-sm text-gray-500'>
 						Don't have an account? <Link to='/registration' className='underline' >
