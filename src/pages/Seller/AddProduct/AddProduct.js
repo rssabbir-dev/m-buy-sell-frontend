@@ -151,7 +151,7 @@ const AddProduct = () => {
 			});
 	};
 	return (
-		<section className='sm:w-[calc(100vw-300px)] mx-4 mb-20'>
+		<section className='mx-4 mb-20'>
 			<div className='divider'></div>
 			<h2 className='text-3xl text-center'>Add A New Product</h2>
 			<div className='divider'></div>

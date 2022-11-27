@@ -47,9 +47,9 @@ const Registration = () => {
 			}
 		)
 			.then((res) => res.json())
-			.then((data) => {
-				savedUserInDb(data, user?.user?.uid, data.data?.url);
-				handleUpdateUserProfile(data?.name, data.data?.url);
+			.then((imgData) => {
+				savedUserInDb(data, user?.user?.uid, imgData.data?.url);
+				handleUpdateUserProfile(data?.name, imgData.data?.url);
 			})
 			.catch((err) => {
 				console.log(err);
