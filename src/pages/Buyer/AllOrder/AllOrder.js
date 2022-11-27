@@ -19,7 +19,6 @@ const AllOrder = () => {
 					headers: authHeader,
 				}
 			);
-			console.log(res);
 			return res.data;
 		},
 	});
@@ -49,8 +48,8 @@ const AllOrder = () => {
 								<tr key={order._id}>
 									<th>{i + 1}</th>
 									<th>
-										<div class='avatar'>
-											<div class='w-16 rounded'>
+										<div className='avatar'>
+											<div className='w-16 rounded'>
 												<img
 													src={
 														order.product_info

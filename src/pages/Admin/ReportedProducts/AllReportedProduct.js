@@ -7,7 +7,7 @@ import useAuthHeader from '../../../hooks/useAuthHeader';
 import SpinnerSeller from '../../shared/Spinners/SpinnerSeller';
 
 const AllReportedProduct = () => {
-    document.title = 'Reported Products - Admin Dashboard';
+	document.title = 'Reported Products - Admin Dashboard';
 	const [authHeader] = useAuthHeader();
 	const { user } = useContext(AuthContext);
 	const {
@@ -64,9 +64,9 @@ const AllReportedProduct = () => {
 				Swal.fire('Changes are not saved', '', 'info');
 			}
 		});
-    };
-    const handleReportSafe = (id) => {
-        Swal.fire({
+	};
+	const handleReportSafe = (id) => {
+		Swal.fire({
 			title: 'Do you want to mark this product as safe?',
 			showDenyButton: true,
 			showCancelButton: false,
@@ -83,8 +83,8 @@ const AllReportedProduct = () => {
 					}
 				)
 					.then((res) => res.json())
-                    .then((data) => {
-                        console.log(data);
+					.then((data) => {
+						console.log(data);
 						if (data.modifiedCount) {
 							Swal.fire('Report Undo Success!', '', 'success');
 							refetch();
@@ -101,7 +101,7 @@ const AllReportedProduct = () => {
 				Swal.fire('Changes are not saved', '', 'info');
 			}
 		});
-    }
+	};
 	return (
 		<div className='w-screen md:w-[calc(100vw-240px)]'>
 			<div className='divider'></div>
@@ -124,8 +124,8 @@ const AllReportedProduct = () => {
 							<tr key={product._id}>
 								<th>{i + 1}</th>
 								<th>
-									<div class='avatar'>
-										<div class='w-16 rounded'>
+									<div className='avatar'>
+										<div className='w-16 rounded'>
 											<img
 												src={product.product_image}
 												alt='Tailwind-CSS-Avatar-component'
@@ -149,9 +149,7 @@ const AllReportedProduct = () => {
 									</button>
 									<button
 										onClick={() =>
-											handleReportSafe(
-												product._id
-											)
+											handleReportSafe(product._id)
 										}
 										className='btn btn-xs btn-success'
 									>

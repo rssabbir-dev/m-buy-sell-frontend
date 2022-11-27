@@ -6,7 +6,6 @@ import SpinnerSeller from '../pages/shared/Spinners/SpinnerSeller';
 const PrivateRoute = ({ children }) => {
 	const { user, userLoading } = useContext(AuthContext);
 	const location = useLocation();
-    console.log(userLoading);
 	if (userLoading) {
 		return <SpinnerSeller />;
     }

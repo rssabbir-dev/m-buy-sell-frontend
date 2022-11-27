@@ -14,29 +14,32 @@ const AdminLayout = () => {
 			<Link
 				to='/user/admin'
 				href='#'
-				class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
+				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 			>
 				<ImUsers />
 
-				<span class='ml-3 text-sm font-medium'> All Seller </span>
+				<span className='ml-3 text-sm font-medium'> All Seller </span>
 			</Link>
 			<Link
 				to='/user/admin/buyers'
 				href='#'
-				class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
+				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 			>
 				<HiUsers />
 
-				<span class='ml-3 text-sm font-medium'>All Buyer </span>
+				<span className='ml-3 text-sm font-medium'>All Buyer </span>
 			</Link>
 			<Link
 				to='/user/admin/reported-product'
 				href='#'
-				class='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
+				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
 			>
 				<MdReportProblem />
 
-				<span class='ml-3 text-sm font-medium'> Reported Product </span>
+				<span className='ml-3 text-sm font-medium'>
+					{' '}
+					Reported Product{' '}
+				</span>
 			</Link>
 		</>
 	);
@@ -52,17 +55,17 @@ const AdminLayout = () => {
 					</div>
 					<div className='flex-none'>
 						<div className='dropdown dropdown-end'>
-							<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-								<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
+							<div className='sticky inset-x-0 bottom-0 border-t border-gray-100'>
+								<Link className='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 									<img
 										alt='Man'
 										src={user?.photoURL}
-										class='h-10 w-10 rounded-full object-cover'
+										className='h-10 w-10 rounded-full object-cover'
 									/>
 
-									<div class='ml-1.5'>
-										<p class='text-xs'>
-											<strong class='block font-medium'>
+									<div className='ml-1.5'>
+										<p className='text-xs'>
+											<strong className='block font-medium'>
 												{user?.displayName}
 											</strong>
 
@@ -81,31 +84,31 @@ const AdminLayout = () => {
 					</div>
 				</div>
 				<div className={`fixed`}>
-					<div class='md:flex h-screen flex-col justify-between border-r bg-white hidden'>
-						<div class='px-4 py-6'>
+					<div className='md:flex h-screen flex-col justify-between border-r bg-white hidden'>
+						<div className='px-4 py-6'>
 							<Link to='/' className='flex justify-center'>
 								<img className='w-28' src={logo} alt='' />
 							</Link>
 
 							<nav
 								aria-label='Main Nav'
-								class='mt-6 flex flex-col space-y-3'
+								className='mt-6 flex flex-col space-y-3'
 							>
 								{menuItems}
 							</nav>
 						</div>
 
-						<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-							<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
+						<div className='sticky inset-x-0 bottom-0 border-t border-gray-100'>
+							<Link className='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 								<img
 									alt='Man'
 									src={user?.photoURL}
-									class='h-10 w-10 rounded-full object-cover'
+									className='h-10 w-10 rounded-full object-cover'
 								/>
 
-								<div class='ml-1.5'>
-									<p class='text-xs'>
-										<strong class='block font-medium'>
+								<div className='ml-1.5'>
+									<p className='text-xs'>
+										<strong className='block font-medium'>
 											{user?.displayName}
 										</strong>
 

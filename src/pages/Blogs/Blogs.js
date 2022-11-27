@@ -18,11 +18,18 @@ const Blogs = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
-    return <div className='space-y-10'>
-        {
-            blogs.map(blog => <Blog key={blog._id} blog={blog} />)
-        }
-    </div>;
+	return (
+		<div>
+			<div className='divider'></div>
+			<h2 className='text-3xl'>Blogs</h2>
+			<div className='divider'></div>
+			<div className='space-y-10'>
+				{blogs.map((blog) => (
+					<Blog key={blog._id} blog={blog} />
+				))}
+			</div>
+		</div>
+	);
 };
 
 export default Blogs;

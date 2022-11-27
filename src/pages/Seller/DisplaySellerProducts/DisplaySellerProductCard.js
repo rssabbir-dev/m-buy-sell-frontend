@@ -5,8 +5,14 @@ const DisplaySellerProductCard = ({
 	handleProductDelete,
 	handleProductPromote,
 }) => {
-	const { product_name, product_image, category_name, _id, order_status, promote } =
-		product;
+	const {
+		product_name,
+		product_image,
+		category_name,
+		_id,
+		order_status,
+		promote,
+	} = product;
 
 	return (
 		<div className='relative block rounded-lg p-4 shadow-sm shadow-indigo-100 h-full'>
@@ -16,7 +22,7 @@ const DisplaySellerProductCard = ({
 					src={product_image}
 					className='h-56 w-full rounded-md object-contain'
 				/>
-				<span class='absolute top-4 z-10 inline-flex items-center rounded-full bg-gray-400 px-3 py-1 text-xs font-semibold text-white'>
+				<span className='absolute top-4 z-10 inline-flex items-center rounded-full bg-gray-400 px-3 py-1 text-xs font-semibold text-white'>
 					{category_name}
 				</span>
 			</div>

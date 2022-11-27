@@ -12,11 +12,11 @@ const BuyerLayout = () => {
 			<Link
 				to='/user/buyer'
 				href='#'
-				class='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
+				className='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
 			>
 				<BsBorderAll />
 
-				<span class='ml-3 text-sm font-medium'> My Orders </span>
+				<span className='ml-3 text-sm font-medium'> My Orders </span>
 			</Link>
 		</>
 	);
@@ -32,17 +32,17 @@ const BuyerLayout = () => {
 					</div>
 					<div className='flex-none'>
 						<div className='dropdown dropdown-end'>
-							<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-								<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
+							<div className='sticky inset-x-0 bottom-0 border-t border-gray-100'>
+								<Link className='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 									<img
 										alt='Man'
 										src={user?.photoURL}
-										class='h-10 w-10 rounded-full object-cover'
+										className='h-10 w-10 rounded-full object-cover'
 									/>
 
-									<div class='ml-1.5'>
-										<p class='text-xs'>
-											<strong class='block font-medium'>
+									<div className='ml-1.5'>
+										<p className='text-xs'>
+											<strong className='block font-medium'>
 												{user?.displayName}
 											</strong>
 
@@ -61,31 +61,31 @@ const BuyerLayout = () => {
 					</div>
 				</div>
 				<div className={`fixed`}>
-					<div class='md:flex h-screen flex-col justify-between border-r bg-white hidden'>
-						<div class='px-4 py-6'>
+					<div className='md:flex h-screen flex-col justify-between border-r bg-white hidden'>
+						<div className='px-4 py-6'>
 							<Link to='/' className='flex justify-center'>
 								<img className='w-28' src={logo} alt='' />
 							</Link>
 
 							<nav
 								aria-label='Main Nav'
-								class='mt-6 flex flex-col space-y-3'
+								className='mt-6 flex flex-col space-y-3'
 							>
 								{menuItems}
 							</nav>
 						</div>
 
-						<div class='sticky inset-x-0 bottom-0 border-t border-gray-100'>
-							<Link class='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
+						<div className='sticky inset-x-0 bottom-0 border-t border-gray-100'>
+							<Link className='flex shrink-0 items-center bg-white p-4 hover:bg-gray-50'>
 								<img
 									alt='Man'
 									src={user?.photoURL}
-									class='h-10 w-10 rounded-full object-cover'
+									className='h-10 w-10 rounded-full object-cover'
 								/>
 
-								<div class='ml-1.5'>
-									<p class='text-xs'>
-										<strong class='block font-medium'>
+								<div className='ml-1.5'>
+									<p className='text-xs'>
+										<strong className='block font-medium'>
 											{user?.displayName}
 										</strong>
 
