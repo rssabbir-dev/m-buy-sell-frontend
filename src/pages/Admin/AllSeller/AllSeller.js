@@ -28,11 +28,7 @@ const AllSeller = () => {
 		},
 	});
 	if (isLoading) {
-		return (
-			<div>
-				<SpinnerSeller />
-			</div>
-		);
+		return <SpinnerSeller />;
 	}
 	const handleConfirmVerify = (id) => {
 		Swal.fire({

@@ -29,7 +29,7 @@ const DisplayPromoteProduct = () => {
 		<>
 			{products.length > 0 && (
 				<div className='p-2'>
-					<p className='underline'>Advertisement</p>
+					<p className='underline font-semibold'>Advertisement</p>
 					<Swiper
 						slidesPerView={1}
 						spaceBetween={30}
