@@ -28,6 +28,11 @@ const NavBar = () => {
 			<li>
 				<Link to='/blogs'>Blogs</Link>
 			</li>
+			<li>
+				{isAdmin && <Link to='/user/admin'>Admin Dashboard</Link>}
+				{isSeller && <Link to='/user/seller'>Seller Dashboard</Link>}
+				{isBuyer && <Link to='/user/buyer'>Buyer Dashboard</Link>}
+			</li>
 		</>
 	);
 	return (
@@ -82,7 +87,7 @@ const NavBar = () => {
 							<li>
 								<p>{user?.displayName}</p>
 							</li>
-							<li>
+							{/* <li>
 								{isAdmin && (
 									<Link to='/user/admin'>
 										Admin Dashboard
@@ -96,7 +101,7 @@ const NavBar = () => {
 								{isBuyer && (
 									<Link to='/user/buyer'>Buyer Dashboard</Link>
 								)}
-							</li>
+							</li> */}
 							<li>
 								<button onClick={handleLogOut}>Logout</button>
 							</li>
