@@ -12,7 +12,7 @@ function App() {
 	// 	return config;
 	// });
 	return (
-		<div >
+		<div>
 			<Toaster />
 			<RouterProvider router={router} />
 		</div>

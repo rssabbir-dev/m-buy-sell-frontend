@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useAuthHeader from '../../../hooks/useAuthHeader';
@@ -104,21 +105,88 @@ const DisplaySellerProducts = () => {
 	if (isLoading) {
 		return <SpinnerSeller />;
 	}
+	console.log(products);
 	return (
-		<div className='mx-4 mb-20'>
+		// <div className='mx-4 mb-20'>
+		// 	<div className='divider'></div>
+		// 	<h2 className='text-3xl text-center'>My Products</h2>
+		// 	<div className='divider'></div>
+		// 	<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
+		// 		{products.map((product) => (
+		// 			<DisplaySellerProductCard
+		// 				handleProductDelete={handleProductDelete}
+		// 				handleProductPromote={handleProductPromote}
+		// 				key={product._id}
+		// 				product={product}
+		// 			/>
+		// 		))}
+		// 	</div>
+		// </div>
+		<div className='w-screen md:w-[calc(100vw-240px)]'>
 			<div className='divider'></div>
-			<h2 className='text-3xl text-center'>My Products</h2>
+			<h2 className='text-3xl text-center'>All order List</h2>
 			<div className='divider'></div>
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
-				{products.map((product) => (
-					<DisplaySellerProductCard
-						handleProductDelete={handleProductDelete}
-						handleProductPromote={handleProductPromote}
-						key={product._id}
-						product={product}
-					/>
-				))}
-			</div>
+			{products.length > 0 ? (
+				<div className='overflow-x-auto'>
+					<table className='table w-full'>
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>Product Image</th>
+								<th>Product Name</th>
+								<th>Category Name</th>
+								<th>Price</th>
+								<th>Advertise</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{products.map((product, i) => (
+								<tr key={product._id}>
+									<th>{i + 1}</th>
+									<th>
+										<div className='avatar'>
+											<div className='w-16 rounded'>
+												<img
+													src={product.product_image}
+													alt='Tailwind-CSS-Avatar-component'
+												/>
+											</div>
+										</div>
+									</th>
+									<td>{product.product_name}</td>
+									<td>{product.category_name}</td>
+									<td>${product.resell_price}</td>
+									<td>
+										{!product.order_status && !product.promote ? (
+											<button
+												className='btn btn-sm btn-primary'
+												onClick={() =>
+													handleProductPromote(product._id)
+												}
+											>
+												Promote
+											</button>
+										) : <p className='text-sm text-green-500'>Promoted</p>}
+									</td>
+									<td>
+										<button
+											className='btn btn-sm btn-error'
+											onClick={() =>
+												handleProductDelete(product._id)
+											}
+										>
+											Delete
+										</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			) : (
+				<p className='italic '>You haven't placed any order yet!</p>
+			)}
 		</div>
 	);
 };
