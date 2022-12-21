@@ -6,7 +6,7 @@ const HomeBanner = () => {
 		<section className='bg-banner-img '>
 			<div className='mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center bg-gradient-to-t from-[#edebeb] to-[#ffffffb0]'>
 				<div className='mx-auto max-w-xl text-center'>
-					<h1 className='text-3xl font-extrabold sm:text-5xl uppercase'>
+					<h1 className='text-3xl text-gray-600 font-extrabold sm:text-5xl uppercase'>
 						Join Thousand Used Mobile.
 						<strong className='font-extrabold text-primary sm:block'>
 							Resell Shop in BD.

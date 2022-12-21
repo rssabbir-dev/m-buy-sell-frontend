@@ -136,6 +136,7 @@ const DisplaySellerProducts = () => {
 								<th>Product Name</th>
 								<th>Category Name</th>
 								<th>Price</th>
+								<th>Status</th>
 								<th>Advertise</th>
 								<th>Action</th>
 							</tr>
@@ -158,16 +159,36 @@ const DisplaySellerProducts = () => {
 									<td>{product.category_name}</td>
 									<td>${product.resell_price}</td>
 									<td>
-										{!product.order_status && !product.promote ? (
+										<div className='uppercase'>
+											{product.order_status ? (
+												<div className='text-xs badge badge-success badge-outline'>
+													SOLD
+												</div>
+											) : (
+												<div className='text-xs badge badge-error badge-outline'>
+													UNSOLD
+												</div>
+											)}
+										</div>
+									</td>
+									<td>
+										{!product.order_status &&
+										!product.promote ? (
 											<button
 												className='btn btn-sm btn-primary'
 												onClick={() =>
-													handleProductPromote(product._id)
+													handleProductPromote(
+														product._id
+													)
 												}
 											>
 												Promote
 											</button>
-										) : <p className='text-sm text-green-500'>Promoted</p>}
+										) : (
+											<p className='text-sm text-green-500'>
+												Promoted
+											</p>
+										)}
 									</td>
 									<td>
 										<button
